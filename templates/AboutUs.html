@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block NavName %}
+<a href="{%url 'AboutUs'%}">About Us</a>
+{% endblock %}
+
+{% block NavManu %}
+        <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
+        <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
+        <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
+{% endblock %}
+
+{% block content %}
+<div class="w-full max-w-3xl mx-auto mt-16 p-8 bg-white rounded-lg shadow-md space-y-6 text-gray-700">
+  <h2 class="text-3xl font-bold flex items-center gap-2 text-blue-600">
+    <i class="fas fa-building"></i>
+    About Us
+  </h2>
+
+  <p class="text-sm text-gray-600">
+    <strong>AgroSmart Inventory Management System</strong> is a modern, user-friendly platform designed to streamline the way businesses and organizations manage their inventory, users, and operations.
+    Whether you’re running a warehouse, retail shop, agricultural supply chain, or an enterprise with multiple products,
+    our system provides you with the tools to track, organize, and control your assets efficiently.
+  </p>
+
+  <p class="text-sm text-gray-600">
+    Our mission is to <strong>empower businesses with smart technology</strong> that reduces manual errors, saves time, and improves accuracy in inventory handling.
+    From stock tracking and order history to user access control and real-time updates, AgroSmart offers a centralized solution for smarter decisions.
+  </p>
+
+  <h3 class="text-2xl font-semibold text-gray-800 flex items-center gap-2 mt-6">
+    <i class="fas fa-lightbulb text-yellow-500"></i>
+    Why Choose Us?
+  </h3>
+
+  <ul class="list-disc list-inside space-y-3 text-sm text-gray-700 pl-2">
+    <li>
+      <strong>Real-time Inventory Tracking:</strong> Get instant updates on stock levels, movements, and alerts when items run low.
+    </li>
+    <li>
+      <strong>User Role Management:</strong> Secure and control access with role-based user management for admins, staff, and vendors.
+    </li>
+    <li>
+      <strong>Simple & Intuitive UI:</strong> Designed with a clean and responsive interface to make your workflow seamless across devices.
+    </li>
+    <li>
+      <strong>Reports & Analytics:</strong> Gain valuable insights into your operations with customizable reports and analytics dashboards.
+    </li>
+    <li>
+      <strong>Scalable & Reliable:</strong> Built with modern technologies to grow with your business needs — from small teams to large enterprises.
+    </li>
+  </ul>
+
+  <p class="text-sm text-gray-600">
+    Whether you're a startup or a growing organization, <strong>AgroSmart Inventory Management System</strong> helps you stay in control, save time, and focus on what truly matters — growing your business.
+  </p>
+</div>
+
+{% endblock %}

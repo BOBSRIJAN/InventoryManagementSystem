@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
+    <title>AgroSmart</title>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-green-100">
+
+  <!-- Dynamic Island Menu -->
+  <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+    <input type="checkbox" id="menuToggle" class="peer hidden">
+    <label for="menuToggle"
+           class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
+      <div class="flex justify-between items-center">
+        <span class="text-sm font-semibold">
+          {% block NavName %}
+          Home
+          {% endblock %}
+        </span>
+        <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
+      </div>
+    </label>
+    <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
+      <nav class="space-y-2">
+        <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Dashboard</a>
+        <a href="#users" class="block py-2 px-4 rounded hover:bg-gray-700 transition">User Management</a>
+        <a href="#inventory" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Inventory</a>
+        <a href="#feedback" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Feedback</a>
+        <a href="#reports" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Reports</a>
+      </nav>
+    </div>
+  </div>
+    <a href="{% url 'custom_admin' %}">Dashboard</a>
+
+</body>
+</html>
