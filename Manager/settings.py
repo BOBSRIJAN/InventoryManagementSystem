@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Admin',
     'LoginLogout',
-    'FarmersDashboard',
+    'Farmers',
 ]
 
 MIDDLEWARE = [

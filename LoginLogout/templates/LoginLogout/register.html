@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block NavManu %}
+        <a href="{%url 'LandingPage'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Home</a>
         <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
         <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
         <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
@@ -49,9 +50,6 @@
       </div>
       <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition"> Sign In </button>
     </form>
-    <p class="text-xs text-center text-gray-500">Don't have an account?
-      <a href="{% url 'register' %}" class="text-blue-600 hover:underline">Register</a>
-    </p>
   </section>
   {% endblock %}
 </body>

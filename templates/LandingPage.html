@@ -7,36 +7,115 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="{% static 'css/landing_page.css' %}">
-    <title>AgroSmart</title>
+    <link rel="stylesheet" href="{% static 'css/LandingPage.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>AgroSmart - Smart Inventory Management</title>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 via-white to-green-100">
+<body class="font-inter bg-cover bg-center bg-no-repeat" style="background-image: url('{% static 'images/farm-bg.jpg' %}');">
+    <div class="absolute inset-0 bg-black/30"></div>
+    <div class="relative min-h-screen flex flex-col">
+        
+      <!-- Dynamic Island Menu -->
+        <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+            <input type="checkbox" id="menuToggle" class="peer hidden">
+            <label for="menuToggle"
+                   class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm font-semibold">
+                      <a href="{%url 'LandingPage'%}">Home</a>
+                    </span>
+                    <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
+                </div>
+            </label>
+            <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
+                <nav class="space-y-2">
+                  <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
+                  <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
+                  <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
+                  <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
+                </nav>
+            </div>
+        </div>
 
-  <!-- Dynamic Island Menu -->
-  <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-    <input type="checkbox" id="menuToggle" class="peer hidden">
-    <label for="menuToggle"
-           class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
-      <div class="flex justify-between items-center">
-        <span class="text-sm font-semibold">
-          {% block NavName %}
-          Home
-          {% endblock %}
-        </span>
-        <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
-      </div>
-    </label>
-    <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
-      <nav class="space-y-2">
-        <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Dashboard</a>
-        <a href="#users" class="block py-2 px-4 rounded hover:bg-gray-700 transition">User Management</a>
-        <a href="#inventory" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Inventory</a>
-        <a href="#feedback" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Feedback</a>
-        <a href="#reports" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Reports</a>
-      </nav>
+<!-- Hero Section -->
+<section class="relative flex flex-col items-center justify-center text-center py-20 px-4 md:px-0 min-h-[60vh] text-white">
+    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+        <source src="{% static 'videos/VN.mp4' %}" type="video/mp4">
+        <img src="{% static 'images/farm-bg.jpg' %}" alt="Fallback farm background" class="w-full h-full object-cover">
+    </video>
+    <div class="absolute inset-0 bg-black/50 z-10"></div>
+    <div class="relative z-20">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">Streamline Your Inventory with AgroSmart</h1>
+        <p class="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-center animate-fade-in">Efficient, smart, and sustainable inventory management for farmers and businesses.</p>
+        <a href="{% url 'login' %}" class="bg-green-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition-transform duration-300 hover:scale-105">
+            Get Started
+        </a>
     </div>
-  </div>
-    <a href="{% url 'custom_admin' %}">Dashboard</a>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-16 px-4 bg-gray-100">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Why Choose AgroSmart?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <i class="fas fa-warehouse text-4xl text-teal-600 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Real-Time Inventory Tracking</h3>
+            <p class="text-gray-700">Monitor your stock levels instantly, ensuring you never run out of critical supplies.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <i class="fas fa-users text-4xl text-teal-600 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">User Management</h3>
+            <p class="text-gray-700">Easily manage team access and permissions for seamless collaboration.</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <i class="fas fa-chart-line text-4xl text-teal-600 mb-4"></i>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Insightful Reports</h3>
+            <p class="text-gray-700">Generate detailed reports to make data-driven decisions for your business.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section -->
+<section id="testimonials" class="py-16 px-4 bg-amber-50">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Trusted by Farmers & Businesses</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-gray-700 italic mb-4">"AgroSmart transformed how we manage our farm inventory. It's simple and effective!"</p>
+            <p class="text-yellow-500 font-semibold">– John D., Farmer</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="text-gray-700 italic mb-4">"The real-time tracking feature saved us time and reduced waste significantly."</p>
+            <p class="text-yellow-500 font-semibold">– Sarah M., Agri-Business Owner</p>
+        </div>
+    </div>
+</section>
+  <!-- Footer -->
+  <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h2 class="text-xl font-bold">Smart Admin</h2>
+        <p class="mt-2 text-sm text-gray-600">Empowering smart inventory and user management.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#dashboard" class="hover:text-blue-600">Dashboard</a></li>
+          <li><a href="#users" class="hover:text-blue-600">Users</a></li>
+          <li><a href="#inventory" class="hover:text-blue-600">Inventory</a></li>
+          <li><a href="#reports" class="hover:text-blue-600">Reports</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Contact</h3>
+        <p class="text-sm">Email: <a href="mailto:support@agrosmart.com" class="text-blue-600 hover:underline">support@agrosmart.com</a></p>
+        <p class="text-sm">Phone: +91 98765 43210</p>
+      </div>
+    </div>
+    <div class="border-t border-white/30 text-center text-sm py-4 bg-white/10 backdrop-blur-sm">
+      &copy; 2025 Smart. All rights reserved.
+    </div>
+  </footer>
+    </div>
 
 </body>
 </html>

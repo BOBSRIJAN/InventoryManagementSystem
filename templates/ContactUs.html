@@ -4,7 +4,8 @@
 <a href="{%url 'ContactUs'%}">Contact Us</a>
 {% endblock %}
 
-{% block NavManu %} 
+{% block NavManu %}
+        <a href="{%url 'LandingPage'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Home</a> 
         <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
         <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
         <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
