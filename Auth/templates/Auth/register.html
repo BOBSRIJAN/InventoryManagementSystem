@@ -2,39 +2,54 @@
 {% load static %}
 
 {% block NavName %}
-<a href="{%url 'login'%}">Login</a>
+<a href="{%url 'register'%}">Register</a>
 {% endblock %}
 
 {% block NavManu %}
         <a href="{%url 'LandingPage'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Home</a>
-        <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
+        <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
         <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
         <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
+
 {% endblock %}
 
 {% block content %}
-  <section class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-8 mx-auto mt-32 pb-16 ">
-    <h2 class="text-3xl font-bold text-center text-gray-800">Welcome Back</h2>
-    <p class="text-sm text-gray-500 text-center">Login to your AgroSmart account</p>
+  <section class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 space-y-8 mx-auto mt-8 pb-16 ">
+    <h2 class="text-3xl font-bold text-center text-gray-800">Welcome</h2>
+    <p class="text-sm text-gray-500 text-center">Create your AgroSmart account</p>
     <form method="POST" class="space-y-5">
       {% csrf_token %}
       <div>
         <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
         <input type="text" name="username" id="username" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
       </div>
-      <div>
+       <div>
         <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
         <input type="Email" name="Email" id="Email" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
-      </div>
+       </div>
+        <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Select Role</label>
+        <div class="flex space-x-6">
+            <label class="flex items-center space-x-2">
+            <input type="radio" name="role" value="farmer" class="text-blue-600 focus:ring-blue-400" required>
+            <span class="text-sm text-gray-700">Farmer</span>
+            </label>
+            <label class="flex items-center space-x-2">
+            <input type="radio" name="role" value="Shopkeeper" class="text-blue-600 focus:ring-blue-400" required>
+            <span class="text-sm text-gray-700"> Shopkeeper </span>
+            </label>
+            <label class="flex items-center space-x-2">
+            <input type="radio" name="role" value="user" class="text-blue-600 focus:ring-blue-400" required>
+            <span class="text-sm text-gray-700">User</span>
+            </label>
+        </div>
+        </div>
       <div>
         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
         <input type="password" name="password" id="password" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
       </div>
       <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition"> Sign In </button>
     </form>
-    <p class="text-xl text-center text-gray-500">Don't have an account?
-      <a href="{% url 'register' %}" class="text-blue-600 hover:underline">Register</a>
-    </p>
   </section>
   {% endblock %}
 </body>

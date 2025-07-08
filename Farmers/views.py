@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
-
+from Auth.decorators import custom_login_required
 # Create your views here.
-
+@custom_login_required
 def Farmers(request):
     return render(request, 'Farmers/dashboard.html')
 
 def Farmers_logout(request):
-    logout(request)
-    return redirect('LandinPgage')
+    request.session.flush()
+    return redirect('LandingPage')

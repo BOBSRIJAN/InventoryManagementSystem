@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
 
-class LoginLogout(models.Model):
-    username = models.CharField(max_length=100, unique=True)
+class register(models.Model):
+    username = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128, unique=True)
     role = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/layout.css' %}">
     <title>AgroSmart</title>
 </head>
-<body class="min-h-screen flex flex-col bg-gradient-to-br from-sky-100 via-white to-emerald-100">
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-sky-300 via-white to-emerald-200">
     <!-- Dynamic Island Menu -->
     <section class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
         <input type="checkbox" id="menuToggle" class="peer hidden">
@@ -34,7 +34,30 @@
     </div>
 </section>
 
-  <main class="flex-grow">
+    <!-- Main Content -->
+  <main class="pt-28 flex-grow relative z-10">
+    {% if messages %}
+    <div class="max-w-3xl mx-auto px-1 sm:px-2 lg:px-3 py-6 space-y-4">
+      {% for message in messages %}
+      <div class="flex items-start justify-between p-4 rounded-lg shadow-md
+                  {% if message.tags == 'error' %}
+                    bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200
+                  {% elif message.tags == 'success' %}
+                    bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                  {% elif message.tags == 'warning' %}
+                    bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                  {% else %}
+                    bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
+                  {% endif %}
+                  ">
+        <div class="flex-1">
+          <p class="font-medium">{{ message }}</p>
+        </div>
+        <button type="button" class="ml-4 text-xl font-bold leading-none focus:outline-none" onclick="this.parentElement.remove()">&times;</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
     {% block content %}
     {% endblock %}
   </main>

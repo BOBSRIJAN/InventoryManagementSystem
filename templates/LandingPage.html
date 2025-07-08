@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <link rel="stylesheet" href="{% static 'css/LandingPage.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <title>AgroSmart - Smart Inventory Management</title>
+    <title>AgroSmart</title>
 </head>
-<body class="font-inter bg-cover bg-center bg-no-repeat" style="background-image: url('{% static 'images/farm-bg.jpg' %}');">
-    <div class="absolute inset-0 bg-black/30"></div>
+<body class="font-inter bg-cover bg-center min-h-screen flex flex-col bg-gradient-to-br from-sky-300 via-white to-emerald-200">
+    
+<div class="absolute inset-0 bg-black/30"></div>
     <div class="relative min-h-screen flex flex-col">
         
       <!-- Dynamic Island Menu -->
@@ -54,7 +55,7 @@
 </section>
 
 <!-- Features Section -->
-<section id="features" class="py-16 px-4 bg-gray-100">
+<section id="features" class="py-16 px-4 bg-emerald-100">
     <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Why Choose AgroSmart?</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">

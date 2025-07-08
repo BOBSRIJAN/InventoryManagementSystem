@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Admin',
-    'LoginLogout',
+    'Auth',
     'Farmers',
 ]
 
@@ -115,7 +115,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-LOGIN_URL = '/admin/login/' 
+LOGIN_URL = '/srijan/login/' 
 LOGIN_REDIRECT_URL = '/dashboard/'  
 LOGOUT_REDIRECT_URL = '/'  
 
