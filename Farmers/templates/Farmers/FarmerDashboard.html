@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin</title>
+  <title>Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link rel="stylesheet" href="{% static 'css/Admin.css' %}"/>
@@ -17,19 +17,20 @@
   <div class="flex items-center justify-between bg-gray-800 text-white rounded-full px-4 py-2 shadow-lg w-[190px] md:w-[220px] transition-all duration-300 hover:scale-105">
     <label for="menuToggle" class="flex items-center justify-between w-full cursor-pointer">
       <span class="text-sm font-semibold">
-        <a href="{% url 'custom_admin' %}">Admin</a>
+        <a href="{% url 'Farmers' %}">Dashboard</a>
       </span>
       <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
     </label>
-    <a href="{% url 'admin_logout' %}" title="Logout"
+    <a href="{% url 'farmers_logout' %}" title="Logout"
        class="ml-4 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-md transition-all duration-300">
       <i class="fas fa-sign-out-alt text-lg"></i>
     </a>
   </div>
+
   <!-- Dropdown Menu -->
   <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
     <nav class="space-y-2">
-      <a href="{% url 'dashboard' %}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Dashboard</a>
+      <a href="{% url 'LandingPage' %}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Dashboard</a>
       <a href="#users" class="block py-2 px-4 rounded hover:bg-gray-700 transition">User Management</a>
       <a href="#inventory" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Farmer Inventory</a>
       <a href="#inventory" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Shopkeeper Inventory</a>
@@ -43,7 +44,7 @@
 {% block body %}
   <!-- Main Content -->
   <main class="flex-grow max-w-7xl mx-auto px-4 pt-32 pb-16">
-    <h1 class="text-5xl font-extrabold mb-12 text-center text-gray-800">Admin</h1>
+    <h1 class="text-5xl font-extrabold mb-12 text-center text-gray-800">Dashboard</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       <!-- Dashboard Card -->

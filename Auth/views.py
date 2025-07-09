@@ -16,6 +16,7 @@ def login(request):
         
         if user is not None and user.check_password(password):
             request.session['user_id'] = user.id
+            request.session['username'] = user.username
             request.session['Email'] = user.email
             request.session['role'] = user.role
             
@@ -36,7 +37,7 @@ def login(request):
             return redirect("register")
     return render(request, 'Auth/login.html')
 
-    
+
 def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')

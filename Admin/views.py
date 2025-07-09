@@ -7,6 +7,7 @@ from django.contrib.auth import logout
 def Admin(request):
     return render(request, 'Admin/Admin.html')
 
+@login_required
 def Dashboard(request):
     return render(request, 'Admin/Dashboard.html')
 
