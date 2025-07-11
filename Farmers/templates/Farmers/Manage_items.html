@@ -1,0 +1,50 @@
+{% extends "Farmers/FarmerDashboard.html" %}
+{% load static %}
+
+{% block content %}
+<main class="max-w-4xl mx-auto pt-32 pb-20 px-4">
+  <h1 class="text-3xl font-bold text-center mb-8">Manage item's</h1>
+
+  <!-- Add / Edit Item Form -->
+  <form method="POST" class="bg-white p-6 rounded-xl shadow-md mb-8">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ edit_item.id|default:'' }}">
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="text" name="name" value="{{ edit_item.name|default:'' }}" placeholder="Item Name" required class="p-3 border rounded">
+      <input type="number" name="quantity" value="{{ edit_item.quantity|default:'' }}" placeholder="Quantity" required class="p-3 border rounded">
+      <input type="text" name="category" value="{{ edit_item.category|default:'' }}" placeholder="Category" required class="p-3 border rounded">
+      <input type="number" step="0.01" name="price" value="{{ edit_item.price|default:'' }}" placeholder="Price" required class="p-3 border rounded">
+    </div>
+
+    <button type="submit" name="action" value="{% if edit_item %}update{% else %}add{% endif %}"
+      class="mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+      {% if edit_item %}Update{% else %}Add{% endif %} Item
+    </button>
+    {% if edit_item %}
+      <a href="{% url 'Manage_items' %}" class="ml-4 text-sm text-red-600 hover:underline">Cancel Edit</a>
+    {% endif %}
+  </form>
+
+  <!-- Item List -->
+  {% for item in items %}
+    <div class="bg-white p-4 rounded-xl shadow mb-4 flex justify-between items-center">
+      <div>
+        <h2 class="font-semibold">{{ item.name }}</h2>
+        <p class="text-sm text-gray-600">Qty: {{ item.quantity }} | ₹{{ item.price }} | {{ item.category }}</p>
+      </div>
+      <div class="flex space-x-2">
+        <a href="?edit={{ item.id }}" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Edit</a>
+        <form method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="id" value="{{ item.id }}">
+          <button type="submit" name="action" value="delete"
+            class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <p class="text-center text-gray-600">No items added yet.</p>
+  {% endfor %}
+</main>
+{% endblock %}
