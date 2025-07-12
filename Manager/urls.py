@@ -11,6 +11,6 @@ urlpatterns = [
     path('customAdmin/', include('Admin.urls')),
     path('login/', include('Auth.urls')),
     path('', include('Farmers.urls')),
-    path('', include('Shopkeeper.urls')),
-    path('', include('User.urls')),
+    path('Shopkeeper/', include('Shopkeeper.urls')),
+    path('User/', include('User.urls')),
 ]
