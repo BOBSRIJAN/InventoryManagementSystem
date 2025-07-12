@@ -8,7 +8,9 @@ urlpatterns = [
     path('contact/', ContactUs, name='ContactUs'),
     path('about/', AboutUs, name='AboutUs'),
     # my app's
-    path('', include('Farmers.urls')),
     path('customAdmin/', include('Admin.urls')),
     path('login/', include('Auth.urls')),
+    path('', include('Farmers.urls')),
+    path('', include('Shopkeeper.urls')),
+    path('', include('User.urls')),
 ]

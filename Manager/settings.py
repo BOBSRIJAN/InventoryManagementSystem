@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'Admin',
     'Auth',
     'Farmers',
+    'Shopkeeper',
+    'User',
 ]
 
 MIDDLEWARE = [
