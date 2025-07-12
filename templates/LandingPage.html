@@ -6,97 +6,245 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <script src = "{% static "js/tailwind.config.js" %}"></script>
     <link rel="stylesheet" href="{% static 'css/LandingPage.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>AgroSmart</title>
 </head>
-<body class="font-inter bg-cover bg-center min-h-screen flex flex-col bg-gradient-to-br from-sky-300 via-white to-emerald-200">
+<body class="font-inter bg-gradient-to-br from-emerald-50 via-sky-50 to-indigo-100 min-h-screen pattern-dots overflow-x-hidden">
     
-<div class="absolute inset-0 bg-black/30"></div>
-    <div class="relative min-h-screen flex flex-col">
+<!-- Dynamic Island Menu -->
+  <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+      <input type="checkbox" id="menuToggle" class="peer hidden">
+      <label for="menuToggle"
+              class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
+           <div class="flex justify-between items-center">
+              <span class="text-sm font-semibold">
+                <a href="{%url 'LandingPage'%}">AgroSmart</a>
+              </span>
+              <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
+          </div>
+      </label>
+      <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
+          <nav class="space-y-2">
+            <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
+            <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
+            <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
+            <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
+          </nav>
+      </div>
+  </div>
+
+    <!-- Enhanced Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-emerald-400/20 rounded-full blur-3xl animate-float"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-float delay-300"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        </div>
         
-      <!-- Dynamic Island Menu -->
-        <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-            <input type="checkbox" id="menuToggle" class="peer hidden">
-            <label for="menuToggle"
-                   class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
-                <div class="flex justify-between items-center">
-                    <span class="text-sm font-semibold">
-                      <a href="{%url 'LandingPage'%}">Home</a>
-                    </span>
-                    <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-4 max-w-6xl mt-32 mx-auto">
+            <div class="animate-fade-in-up">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
+                    <span class="gradient-text">Streamline Your</span>
+                    <br>
+                    <span class="text-gray-800">Inventory with</span>
+                    <br>
+                    <span class="text-emerald-600">AgroSmart</span>
+                </h1>
+            </div>
+            
+            <div class="animate-fade-in-up delay-200">
+                <p class="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto font-medium leading-relaxed">
+                    Efficient, smart, and sustainable inventory management for farmers and businesses. 
+                    Experience the future of agricultural technology.
+                </p>
+            </div>
+            
+            <div class="animate-fade-in-up delay-400 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <form method="POST" class="btn-gradient text-white px-10 py-4 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 hover-glow shadow-2xl">
+                  {% csrf_token %}  
+                  <input type="hidden" name="flag" value="user">
+                  <button type="submit" class="as fa-rocket mr-2">Get Started Now </button>
+                </form>
+
+                <button class="glass border-2 border-emerald-500 text-emerald-700 px-10 py-4 rounded-full font-bold text-lg hover:bg-emerald-500 hover:text-white transition-all duration-300 shadow-xl">
+                    <i class="fas fa-play mr-2"></i>Watch Demo
+                </button>
+            </div>
+            
+            <!-- Floating Stats -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up delay-600">
+                <div class="glass rounded-2xl p-6 hover-lift">
+                    <div class="text-3xl font-bold text-emerald-600 mb-2">1000+</div>
+                    <div class="text-gray-600 font-medium">Active Users</div>
                 </div>
-            </label>
-            <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
-                <nav class="space-y-2">
-                  <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
-                  <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
-                  <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
-                  <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
-                </nav>
+                <div class="glass rounded-2xl p-6 hover-lift delay-100">
+                    <div class="text-3xl font-bold text-blue-600 mb-2">97.6%</div>
+                    <div class="text-gray-600 font-medium">Uptime</div>
+                </div>
+                <div class="glass rounded-2xl p-6 hover-lift delay-200">
+                    <div class="text-3xl font-bold text-purple-600 mb-2">24/7</div>
+                    <div class="text-gray-600 font-medium">Support</div>
+                </div>
             </div>
         </div>
+    </section>
 
-<!-- Hero Section -->
-<section class="relative flex flex-col items-center justify-center text-center py-20 px-4 md:px-0 min-h-[60vh] text-white">
-    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-        <source src="{% static 'videos/VN.mp4' %}" type="video/mp4">
-        <img src="{% static 'images/farm-bg.jpg' %}" alt="Fallback farm background" class="w-full h-full object-cover">
-    </video>
-    <div class="absolute inset-0 bg-black/50 z-10"></div>
-    <div class="relative z-20">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in">Streamline Your Inventory with AgroSmart</h1>
-        <p class="text-lg md:text-xl mb-6 max-w-2xl mx-auto text-center animate-fade-in">Efficient, smart, and sustainable inventory management for farmers and businesses.</p>
-        <form method="POST" >
-          {% csrf_token %}
-          <input type="hidden" name="flag" value="user">
-          <button type="submit" class="bg-green-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-700 transition-transform duration-300 hover:scale-105">Get Started</button>
-        </form>
-    </div>
-</section>
+    <!-- Enhanced Features Section -->
+    <section class="py-20 px-4 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h2 class="text-4xl md:text-6xl font-black text-gray-800 mb-6">
+                    Why Choose <span class="gradient-text">AgroSmart</span>?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+                    Discover the powerful features that make AgroSmart the #1 choice for modern farmers and agricultural businesses.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-left">
+                    <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 animate-float">
+                        <i class="fas fa-warehouse text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Real-Time Inventory Tracking</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Monitor your stock levels instantly with our advanced tracking system. Never run out of critical supplies again with smart alerts and automated reordering.
+                    </p>
+                    <div class="mt-6 flex items-center text-emerald-600 font-semibold">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-up delay-200">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mb-6 animate-float delay-200">
+                        <i class="fas fa-users text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Advanced User Management</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Seamlessly manage team access and permissions with role-based controls. Collaborate effortlessly with your entire agricultural team.
+                    </p>
+                    <div class="mt-6 flex items-center text-blue-600 font-semibold">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-right delay-400">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mb-6 animate-float delay-400">
+                        <i class="fas fa-chart-line text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Intelligent Analytics</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Generate comprehensive reports and insights with AI-powered analytics. Make data-driven decisions to optimize your agricultural operations.
+                    </p>
+                    <div class="mt-6 flex items-center text-purple-600 font-semibold">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- Features Section -->
-<section id="features" class="py-16 px-4 bg-emerald-100">
-    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Why Choose AgroSmart?</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <i class="fas fa-warehouse text-4xl text-teal-600 mb-4"></i>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Real-Time Inventory Tracking</h3>
-            <p class="text-gray-700">Monitor your stock levels instantly, ensuring you never run out of critical supplies.</p>
+    <!-- Enhanced Testimonials Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-emerald-50 to-blue-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h2 class="text-4xl md:text-6xl font-black text-gray-800 mb-6">
+                    Trusted by <span class="gradient-text">Thousands</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
+                    Join the community of successful farmers and businesses who have transformed their operations with AgroSmart.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card rounded-3xl p-8 animate-fade-in-left">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold text-gray-800">John Davidson</h4>
+                            <p class="text-gray-600">Farm Owner</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg leading-relaxed">
+                        "AgroSmart completely transformed how we manage our farm inventory. The real-time tracking and automated alerts have saved us countless hours and significantly reduced waste."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card rounded-3xl p-8 animate-fade-in-up delay-200">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold text-gray-800">Sarah Mitchell</h4>
+                            <p class="text-gray-600">Agri-Business Owner</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg leading-relaxed">
+                        "The analytics and reporting features provide incredible insights into our operations. We've increased efficiency by 40% since implementing AgroSmart."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card rounded-3xl p-8 animate-fade-in-right delay-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="font-bold text-gray-800">Michael Rodriguez</h4>
+                            <p class="text-gray-600">Agricultural Manager</p>
+                        </div>
+                    </div>
+                    <div class="flex mb-4">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg leading-relaxed">
+                        "The user management system is phenomenal. Our team collaboration has never been better, and the intuitive interface makes training new staff a breeze."
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <i class="fas fa-users text-4xl text-teal-600 mb-4"></i>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">User Management</h3>
-            <p class="text-gray-700">Easily manage team access and permissions for seamless collaboration.</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <i class="fas fa-chart-line text-4xl text-teal-600 mb-4"></i>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Insightful Reports</h3>
-            <p class="text-gray-700">Generate detailed reports to make data-driven decisions for your business.</p>
-        </div>
-    </div>
-</section>
+    </section>
 
-<!-- Testimonial Section -->
-<section id="testimonials" class="py-16 px-4 bg-amber-50">
-    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12">Trusted by Farmers & Businesses</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <p class="text-gray-700 italic mb-4">"AgroSmart transformed how we manage our farm inventory. It's simple and effective!"</p>
-            <p class="text-yellow-500 font-semibold">– John D., Farmer</p>
-        </div>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <p class="text-gray-700 italic mb-4">"The real-time tracking feature saved us time and reduced waste significantly."</p>
-            <p class="text-yellow-500 font-semibold">– Sarah M., Agri-Business Owner</p>
-        </div>
-    </div>
-</section>
-  <!-- Footer -->
+ <!-- Footer -->
   <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
     <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
       <div>
-        <h2 class="text-xl font-bold">Smart Admin</h2>
+        <h2 class="text-xl font-bold">AgroSmart Admin</h2>
         <p class="mt-2 text-sm text-gray-600">Empowering smart inventory and user management.</p>
       </div>
       <div>
@@ -104,21 +252,20 @@
         <ul class="space-y-1 text-sm">
           <li><a href="#dashboard" class="hover:text-blue-600">Dashboard</a></li>
           <li><a href="#users" class="hover:text-blue-600">Users</a></li>
-          <li><a href="#inventory" class="hover:text-blue-600">Inventory</a></li>
+          <li><a href="#inventory" class="hover:text-blue-600">Farmer Inventory</a></li>
+          <li><a href="#inventory" class="hover:text-blue-600">Shopkeeper Inventory</a></li>
           <li><a href="#reports" class="hover:text-blue-600">Reports</a></li>
         </ul>
       </div>
       <div>
         <h3 class="text-lg font-semibold mb-2">Contact</h3>
-        <p class="text-sm">Email: <a href="mailto:support@agrosmart.com" class="text-blue-600 hover:underline">support@agrosmart.com</a></p>
-        <p class="text-sm">Phone: +91 98765 43210</p>
+        <p class="text-sm">Email: <a href="mailto:support@agrosmart.com" class="text-blue-600 hover:underline">mr.srijanray@gmail.com</a></p>
+        <p class="text-sm">Phone: +91 7044285046</p>
       </div>
     </div>
     <div class="border-t border-white/30 text-center text-sm py-4 bg-white/10 backdrop-blur-sm">
-      &copy; 2025 Smart. All rights reserved.
+      &copy; 2025 AgroSmart. All rights reserved.
     </div>
   </footer>
-    </div>
-
 </body>
 </html>
