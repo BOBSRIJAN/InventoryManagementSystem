@@ -25,7 +25,9 @@ def Farmers(request):
 def Manage_items(request):
     search_term = ""
     search_by = ""
-
+    user_id = request.session.get('user_id')
+    print(user_id)
+    
     if request.method == "POST":
         action = request.POST.get("action")
         item_id = request.POST.get("id")
@@ -34,6 +36,7 @@ def Manage_items(request):
 
         if action == "add":
             Item.objects.create(
+                userid=user_id,
                 name=request.POST["name"],
                 quantity=request.POST["quantity"],
                 category=request.POST["category"],
@@ -45,7 +48,7 @@ def Manage_items(request):
             messages.success(request, "Item Added Successfully")
         
         elif action == "update" and item_id:
-            item = Item.objects.get(id=item_id)
+            item = Item.objects.get(id=item_id, userid=user_id)
             item.name = request.POST["name"]
             item.quantity = request.POST["quantity"]
             item.category = request.POST["category"]
@@ -56,19 +59,19 @@ def Manage_items(request):
             messages.success(request, "Item updated successfully")
         
         elif action == "delete" and item_id:
-            Item.objects.filter(id=item_id).delete()
+            Item.objects.filter(id=item_id, userid=user_id).delete()
             messages.error(request, "Item deleted successfully")
             
         elif action == "search":
             if search_term:
                 if search_by == "name":
-                    items = Item.objects.filter(name__icontains=search_term)
+                    items = Item.objects.filter(name__icontains=search_term, userid=user_id)
                 elif search_by == "category":
-                    items = Item.objects.filter(category__icontains=search_term)
+                    items = Item.objects.filter(category__icontains=search_term, userid=user_id)
                 elif search_by == "date":
-                    items = Item.objects.filter(exp_date__icontains=search_term)
+                    items = Item.objects.filter(exp_date__icontains=search_term, userid=user_id)
                 else:
-                    items = Item.objects.all()
+                    items = Item.objects.filter(userid=user_id)
                 
                 return render(request, 'Farmers/Manage_items.html', {
                     "items": items,
@@ -80,13 +83,13 @@ def Manage_items(request):
         return redirect('Manage_items')
 
     # For GET requests
-    items = Item.objects.all().order_by("-id")
+    items = Item.objects.filter(userid=user_id).order_by("-id")
     edit_item = None
     edit_id = request.GET.get("edit")
 
     if edit_id:
         try:
-            edit_item = Item.objects.get(id=edit_id)
+            edit_item = Item.objects.get(id=edit_id, userid=user_id)
         except Item.DoesNotExist:
             messages.error(request, "Item not found or does not exist")
 
@@ -97,9 +100,10 @@ def Manage_items(request):
         "search_by": search_by
     })
 
-
+@custom_login_required
 def Inventory_reports(request):
-    items = Item.objects.all()
+    user_id = request.session.get('user_id')
+    items = Item.objects.filter(userid=user_id)
 
     name_data = {}
     for item in items:
@@ -163,7 +167,7 @@ def Inventory_reports(request):
         "total":total_quantity,
     })
 
-
+@custom_login_required
 def Market_places(request):
     return render(request, "Farmers/MarketPlaces.html")
     
