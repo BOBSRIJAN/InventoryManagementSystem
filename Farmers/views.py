@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from Auth.decorators import custom_login_required
 from .models import Item
 from django.contrib import messages
-from datetime import datetime
+from datetime import datetime, date
 
 @custom_login_required
 def Farmers(request):
@@ -132,21 +132,22 @@ def Inventory_reports(request):
         try:
             exp_date = datetime.strptime(item.exp_date, "%Y-%m-%d")
             add_date = datetime.strptime(item.add_date, "%Y-%m-%d")
+
             total_life = (exp_date - add_date).days
-            remaining_life = (exp_date - datetime.now()).days
+
+            remaining_life = (exp_date - datetime.now()).total_seconds() / (60 * 60 * 24)
             used_percent = 100 - int((remaining_life / total_life) * 100) if total_life > 0 else 100
             used_percent = min(max(used_percent, 0), 100)
-        
+
+            if date.today() > exp_date.date():
+                expired.append((item, used_percent, exp_date))
+            else:
+                non_expired.append((item, used_percent, exp_date))
+
         except Exception:
             exp_date = datetime.max
             used_percent = 100
-
-        item_data = (item, used_percent, exp_date)
-
-        if used_percent >= 100:
-            expired.append(item_data)
-        else:
-            non_expired.append(item_data)
+            expired.append((item, used_percent, exp_date))
 
     non_expired.sort(key=lambda x: x[2])
     expired.sort(key=lambda x: x[2])
@@ -161,6 +162,11 @@ def Inventory_reports(request):
         "expired_items": expired,
         "total":total_quantity,
     })
+
+
+def Market_places(request):
+    return render(request, "Farmers/MarketPlaces.html")
+    
 
 def Farmers_logout(request):
     request.session.flush()

@@ -30,12 +30,12 @@
   <!-- Dropdown Menu -->
   <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
     <nav class="space-y-2">
-      <a href="{% url 'Farmers' %}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Dashboard</a>
-      <a href="#users" class="block py-2 px-4 rounded hover:bg-gray-700 transition">User Management</a>
-      <a href="#inventory" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Farmer Inventory</a>
-      <a href="#inventory" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Shopkeeper Inventory</a>
-      <a href="#feedback" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Feedback</a>
-      <a href="#reports" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Reports</a>
+      <a href="{%url 'Manage_items'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Manage item's</a>
+      <a href="{%url 'Inventory_reports'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Inventory Reports</a>
+      <a href="{%url 'Market_places'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Marketplaces</a>
+      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Ai Feacher</a>
+      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Ai Feacher</a>
+      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Customer Feedback</a>
     </nav>
   </div>
 </div>
@@ -98,7 +98,7 @@
       </a>
 
       <!-- Marketplaces  -->
-      <a href="#inventory" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+      <a href="{%url 'Market_places'%}" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-green-100 text-green-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
