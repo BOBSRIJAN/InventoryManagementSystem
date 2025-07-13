@@ -71,12 +71,12 @@
     <h1 class="text-5xl font-extrabold mb-12 text-center text-indigo-900">Dashboard</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <!-- item's Card -->
+      <!-- Manage item's Card -->
       <a href="{% url 'Manage_items'%}" class="animate-fade-in-up group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-blue-100 text-blue-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
             </svg>
           </div>
           <h2 class="text-xl font-semibold">Manage item's</h2>
@@ -84,20 +84,20 @@
         <p class="text-gray-600">Manage and view all the item's hear.</p>
       </a>
 
-      <!-- User Management -->
-      <a href="#users" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+      <!-- Inventory Reports -->
+      <a href="{% url 'Inventory_reports' %}" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5v4m4-4v6m4-6v8m-8 4v2m4-2v2m-8-2h8"></path>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold">User Management</h2>
+          <h2 class="text-xl font-semibold">Inventory Reports</h2>
         </div>
-        <p class="text-gray-600">Manage farmer and normal user accounts.</p>
+        <p class="text-gray-600">Your Inventory Reports for all the item's.</p>
       </a>
 
-      <!-- Farmer Inventory -->
+      <!-- Marketplaces  -->
       <a href="#inventory" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-green-100 text-green-600 p-2 rounded-full">
@@ -105,22 +105,35 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3V3z"></path>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold">Farmer Inventory</h2>
+          <h2 class="text-xl font-semibold">Marketplaces</h2>
         </div>
-        <p class="text-gray-600">View items listed by farmers.</p>
+        <p class="text-gray-600">One Step to Selling Smarter.</p>
       </a>
 
-      <!-- Shopkeeper Inventory -->
+      <!-- Ai -->
       <a href="#inventory" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-green-100 text-green-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3V3z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12v-1a3 3 0 013-3a3 3 0 013 3v1m0 0a3 3 0 013 3v1a3 3 0 01-3 3a3 3 0 01-3-3v-1m0-3H9m6 0h3M6 9h1v6H6M6 9l-1 3 1 3"></path>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold">Shopkeeper Inventory</h2>
+          <h2 class="text-xl font-semibold">Ai Feacher</h2>
         </div>
-        <p class="text-gray-600">View items listed by shopkeeper.</p>
+        <p class="text-gray-600">Upcomming Ai Feacher </p>
+      </a>
+
+      <!-- Ai -->
+      <a href="#reports" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+        <div class="flex items-center space-x-4 mb-3">
+          <div class="bg-purple-100 text-purple-600 p-2 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12v-1a3 3 0 013-3a3 3 0 013 3v1m0 0a3 3 0 013 3v1a3 3 0 01-3 3a3 3 0 01-3-3v-1m0-3H9m6 0h3M6 9h1v6H6M6 9l-1 3 1 3"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Ai Feacher</h2>
+        </div>
+        <p class="text-gray-600">Upcomming Ai Feacher</p>
       </a>
 
       <!-- Feedback -->
@@ -131,22 +144,9 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold">User Feedback</h2>
+          <h2 class="text-xl font-semibold">Customer Feedback</h2>
         </div>
-        <p class="text-gray-600">Review messages and feedback from users.</p>
-      </a>
-
-      <!-- Reports -->
-      <a href="#reports" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
-        <div class="flex items-center space-x-4 mb-3">
-          <div class="bg-purple-100 text-purple-600 p-2 rounded-full">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5v4m4-4v6m4-6v8m-8 4v2m4-2v2m-8-2h8"></path>
-            </svg>
-          </div>
-          <h2 class="text-xl font-semibold">Reports</h2>
-        </div>
-        <p class="text-gray-600">Generate system activity and inventory reports.</p>
+        <p class="text-gray-600">Review messages and feedback from customer.</p>
       </a>
 
     </div>

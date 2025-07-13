@@ -97,6 +97,11 @@ def Manage_items(request):
     })
 
 
+def Inventory_reports(request):
+    pass
+    return render(request, "Farmers/InventoryReports.html")
+
+
 def Farmers_logout(request):
     request.session.flush()
     return redirect('LandingPage')
