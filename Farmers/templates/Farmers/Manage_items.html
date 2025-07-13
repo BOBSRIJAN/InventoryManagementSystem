@@ -17,7 +17,7 @@
     <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
       <!-- Sidebar Form: Add / Edit Item -->
       <div class="xl:col-span-1">
-        <div class="bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-8 sticky top-8 hover:shadow-2xl transition-all duration-300">
+        <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-8 sticky top-8 hover:shadow-2xl transition-all duration-300">
           <div class="flex items-center mb-6">
             <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mr-4">
               <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,7 +195,7 @@
       <!-- Item List Section -->
       <div class="xl:col-span-3">
         <!-- Search Bar -->
-        <div class="bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 mb-8">
+        <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 mb-8">
           <div class="flex items-center mb-4">
             <div class="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl flex items-center justify-center mr-3">
               <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -245,7 +245,7 @@
 
         <!-- Item List -->
         {% if items %}
-          <div class="bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl overflow-hidden">
+          <div class=" backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl overflow-hidden">
             <div class="p-6 border-b border-gray-200/50">
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
@@ -304,10 +304,10 @@
                         </span>
                       </td>
                       <td class="py-4 px-6">
-                        <div class="text-sm text-gray-600">{{ item.add_date}}</div>
+                        <div class="text-sm text-black-600">{{ item.add_date}}</div>
                       </td>
                       <td class="py-4 px-6">
-                        <div class="text-sm text-gray-600">{{ item.exp_date }}</div>
+                        <div class="text-sm text-black-600">{{ item.exp_date }}</div>
                       </td>
                       <td class="py-4 px-6">
                         <div class="flex space-x-2">

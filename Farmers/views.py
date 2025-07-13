@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from Auth.decorators import custom_login_required
 from .models import Item
 from django.contrib import messages
-# Create your views here.
+from datetime import datetime
+
 @custom_login_required
 def Farmers(request):
     Name = request.session.get('username')
@@ -98,9 +99,68 @@ def Manage_items(request):
 
 
 def Inventory_reports(request):
-    pass
-    return render(request, "Farmers/InventoryReports.html")
+    items = Item.objects.all()
 
+    name_data = {}
+    for item in items:
+        name_data[item.name] = name_data.get(item.name, 0) + item.quantity
+
+    total_quantity = sum(name_data.values())
+    pie_chart_data = []
+    
+    start_degree = 0
+    for i, (name, quantity) in enumerate(name_data.items()):
+        hue = (i * 60) % 360
+        color = f"hsl({hue}, 70%, 60%)"
+        degree = (quantity / total_quantity) * 360 if total_quantity > 0 else 0
+        end_degree = start_degree + degree
+
+        pie_chart_data.append({
+            "name": name,
+            "color": color,
+            "start_degree": start_degree,
+            "end_degree": end_degree,
+            "quantity": quantity,
+        })
+
+        start_degree = end_degree 
+
+    non_expired = []
+    expired = []
+
+    for item in items:
+        try:
+            exp_date = datetime.strptime(item.exp_date, "%Y-%m-%d")
+            add_date = datetime.strptime(item.add_date, "%Y-%m-%d")
+            total_life = (exp_date - add_date).days
+            remaining_life = (exp_date - datetime.now()).days
+            used_percent = 100 - int((remaining_life / total_life) * 100) if total_life > 0 else 100
+            used_percent = min(max(used_percent, 0), 100)
+        
+        except Exception:
+            exp_date = datetime.max
+            used_percent = 100
+
+        item_data = (item, used_percent, exp_date)
+
+        if used_percent >= 100:
+            expired.append(item_data)
+        else:
+            non_expired.append(item_data)
+
+    non_expired.sort(key=lambda x: x[2])
+    expired.sort(key=lambda x: x[2])
+
+    non_expired = [(item, used_percent) for item, used_percent, _ in non_expired]
+    expired = [(item, used_percent) for item, used_percent, _ in expired]
+
+    return render(request, "Farmers/InventoryReports.html", {
+        "pie_chart_data": pie_chart_data,
+        "total_quantity": total_quantity,
+        "non_expired_items": non_expired,
+        "expired_items": expired,
+        "total":total_quantity,
+    })
 
 def Farmers_logout(request):
     request.session.flush()
