@@ -2,6 +2,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -13,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,17 +69,22 @@ WSGI_APPLICATION = 'Manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'srijan',
-        'USER': 'root',
-        'PASSWORD': 'Qwerty1234@#',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+#this is the testing database for IMS
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'srijan',
+#         'USER': 'root',
+#         'PASSWORD': 'Qwerty1234@#',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
+#new_db conf cloud_database 
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("pgsql_data_base"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -117,6 +124,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 LOGIN_URL = '/srijan/login/' 
 LOGIN_REDIRECT_URL = '/dashboard/'  
 LOGOUT_REDIRECT_URL = '/'  
