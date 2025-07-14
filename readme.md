@@ -1,106 +1,63 @@
 # Underdevelopment!
+
 # Inventory Management System
 
-## Project Description
-This is a Django-based Inventory Management System designed to manage various aspects of inventory, user authentication, and dashboards for different user roles. The project includes multiple Django apps such as Admin, FarmersDashboard, and LoginLogout, providing a modular structure for managing different functionalities.
-
-The system features:
-- User authentication and registration
-- Admin dashboard and management
-- Farmer's dashboard for inventory and related operations
-- Static and dynamic pages including Landing Page, About Us, and Contact Us
-
-**Note:** This project is currently under development.
-
-## Technologies Used
-- Python 3.x
-- Django 5.2.3
-- MySQL Database
-- Tailwind CSS for styling
-- Other dependencies as listed in `requirements.txt`
+## Project Overview
+This is an Inventory Management System built using Django. The system manages different user roles including Admin, Farmers, Shopkeepers, and general Users. It provides functionalities such as inventory management, user authentication, and reporting.
 
 ## Installation
 
 1. Clone the repository:
-   ```bash
+   ```
    git clone <repository-url>
-   cd inventoryManagementSystem/Manager
    ```
-
-2. Create and activate a virtual environment:
-   ```bash
+2. Navigate to the project directory:
+   ```
+   cd Manager
+   ```
+3. Create and activate a virtual environment (recommended):
+   ```
    python -m venv venv
-   # On Windows
-   venv\Scripts\activate
-   # On Unix or MacOS
-   source venv/bin/activate
+   venv\Scripts\activate   # On Windows
+   source venv/bin/activate  # On macOS/Linux
    ```
-
-3. Install dependencies:
-   ```bash
+4. Install the required dependencies:
+   ```
    pip install -r requirements.txt
    ```
 
-4. Set up environment variables:
-   - Create a `.env` file in the `Manager` directory.
-   - Add the following environment variables:
-     ```
-     SECRET_KEY=your_django_secret_key
-     ```
+## Usage
 
-5. Configure MySQL database:
-   - Ensure MySQL server is running.
-   - Create a database named `IMS`.
-   - Update database credentials in `Manager/settings.py` if necessary.
-
-6. Apply migrations:
-   ```bash
+1. Apply migrations:
+   ```
    python manage.py migrate
    ```
-
-7. Create a superuser (admin):
-   ```bash
+2. Create a superuser (admin):
+   ```
    python manage.py createsuperuser
    ```
+3. Run the development server:
+   ```
+   python manage.py runserver
+   ```
+4. Access the application in your browser at:
+   ```
+   http://127.0.0.1:8000/
+   ```
 
-## Running the Development Server
+## Project Structure and Main Apps
 
-Start the Django development server with:
+- **Admin**: Handles administrative functionalities and dashboard.
+- **Auth**: Manages user authentication including login and registration.
+- **Farmers**: Manages farmer-specific inventory and marketplace features.
+- **Shopkeeper**: Manages shopkeeper-related inventory and operations.
+- **User**: General user management and profiles.
 
-```bash
-python manage.py runserver
-```
+## Dependencies
 
-Access the application at `http://127.0.0.1:8000/`.
-
-## Project Structure Overview
-
-- `Admin/` - Django app for admin functionalities.
-- `FarmersDashboard/` - Django app for farmer's dashboard and inventory management.
-- `LoginLogout/` - Django app handling user authentication and registration.
-- `Manager/` - Project configuration, settings, URLs, and main views.
-- `templates/` - Global templates including LandingPage, AboutUs, ContactUs.
-- `static/` - Static files such as CSS and JavaScript.
-- `requirements.txt` - Python dependencies.
-
-## Main URLs
-
-- `/` - Landing Page
-- `/about/` - About Us page
-- `/contact/` - Contact Us page
-- `/dashboard/` - Farmer's dashboard (requires login)
-- `/custom_admin/` - Admin dashboard and management
-- `/login/` - User login and registration
-- `/admin/` - Django admin interface
-
-## Notes
-
-- Debug mode is enabled by default. Disable it in production by setting `DEBUG = False` in `Manager/settings.py`.
-- Static files are served from `/static/`.
-- Login URL is set to `/admin/login/` by default.
-- Ensure to keep the `SECRET_KEY` secure and do not expose it publicly.
+- Django (version as per requirements.txt)
+- Other dependencies listed in `requirements.txt`
 
 ## License
 
-This project does not specify a license. Please add a license file if you intend to distribute it.
-
+This project is licensed under the MIT License. See the LICENSE file for details.
