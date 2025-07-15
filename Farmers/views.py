@@ -169,7 +169,10 @@ def Inventory_reports(request):
 
 @custom_login_required
 def Market_places(request):
-    return render(request, "Farmers/MarketPlaces.html")
+    user_id = request.session.get('user_id')
+    items = Item.objects.filter(userid=user_id)
+    
+    return render(request, "Farmers/MarketPlaces.html", {'items': items})
     
 
 def Farmers_logout(request):

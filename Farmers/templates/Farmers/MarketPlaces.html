@@ -1,4 +1,86 @@
 {% extends "Farmers/FarmerDashboard.html" %}
 {% load static %}
 
-{% block content %}{% endblock %}
+{% block content %}
+<!-- Main Content -->
+  <main class="min-h-screen py-8">
+    <div class="w-full px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">Welcome to Market Places</h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Select any item from the sidebar to view details or manage inventory.</p>
+        </div>
+    </div>
+        <div class="px-12">
+        <!-- Search Bar -->
+        <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 mb-8">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Search Items</h3>
+          </div>
+          
+          <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="flex-1">
+                <div class="relative">
+                  <input type="text" id="search_term" name="search_term" placeholder="Search your items..."
+                         value="{{ search_term|default:'' }}"
+                         class="w-full pl-12 pr-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 placeholder-gray-400"
+                         aria-label="Search items">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="sm:w-48">
+                <select id="search_by" name="search_by"
+                        class="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 appearance-none">
+                  <option value="name" {% if search_by == 'name' %}selected{% endif %}>Search by Item Name</option>
+                  <option value="category" {% if search_by == 'category' %}selected{% endif %}>Search by Item Category</option>
+                  <option value="date" {% if search_by == 'date' %}selected{% endif %}>Search by Expiry Date</option>
+                </select>
+              </div>
+              <button type="submit" name="action" value="search"
+                      class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <span class="hidden sm:inline">Search</span>
+              </button>
+              <a href={%url 'Market_places'%} class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                Clear 
+              </a>       
+            </div>
+          </form>
+        </div>
+         <!-- Items in Card Layout -->
+          
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        {% for item in items %}
+        <a href="#">
+            <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300">
+            <div class="flex items-center justify-between mb-3">
+                <h3 class="text-lg font-bold text-emerald-700">{{ item.name }}</h3>
+                <span class="text-sm font-medium text-gray-500">{{ item.category }}</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-2">Quantity: <span class="font-medium text-gray-800">{{ item.quantity }}</span></p>
+            <p class="text-gray-600 text-sm mb-4">Price: ₹<span class="font-medium text-gray-800">{{ item.price }}</span></p>
+            <div class="flex justify-between items-center">
+                <span class="text-xs text-gray-400 italic">Added on {{ item.created_at|date:"M d, Y" }}</span>
+            </div>
+            </div>
+            </a>
+        {% empty %}
+            <p class="text-gray-500 text-center col-span-full">No items found.</p>
+        {% endfor %}
+        </div>
+     </div>
+    </div>
+  </main>
+{% endblock %}
