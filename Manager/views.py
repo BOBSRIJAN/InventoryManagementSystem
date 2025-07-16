@@ -23,6 +23,8 @@ def LandingPage(request):
 def AboutUs(request):
     return render(request, 'AboutUs.html')
 
+def dev(request):
+    return render(request, 'dev.html')
 
 def ContactUs(request):
     return render(request, 'ContactUs.html')

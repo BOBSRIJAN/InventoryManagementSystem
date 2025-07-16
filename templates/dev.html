@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Our Team</title>
+    <link rel="icon" type="image/png/ico" href="{% static 'img/favicon.ico' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/dev.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br  from-sky-300 via-white to-emerald-200">
+
+    <!-- Section: Meet Our Team -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Heading -->
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+                    Meet Our Team
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    The passionate developers behind this project, dedicated to innovative and impactful solutions.
+                </p>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-8 rounded-full"></div>
+            </div>
+
+            <!-- Grid of Team Members -->
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <!-- Member 1 -->
+                <div class="bg-white/40 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-8 hover:-translate-y-2 transition duration-300 group">
+                    <div class="relative w-32 h-32 mx-auto mb-6">
+                        <img src="{% static 'img/srijan.jpg' %}" alt="SRIJAN RAY" class="w-32 h-32 object-cover rounded-full shadow-lg border-4 border-white">
+                        <span class="absolute -bottom-2 -right-2 w-10 h-10 bg-green-500 rounded-full border-4 border-white flex items-center justify-center">
+                            <i class="fas fa-code text-white text-sm"></i>
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-1">SRIJAN RAY</h3>
+                        <p class="text-blue-600 font-semibold mb-2">Full Stack Developer</p>
+                        <p class="text-gray-600 mb-4">Loves building scalable backend systems and modern frontend UI.</p>
+                        <div class="flex flex-wrap justify-center gap-2 mb-6">
+                            <span class="skill-chip bg-blue-100 text-blue-700">Python</span>
+                            <span class="skill-chip bg-green-100 text-green-700">Django</span>
+                            <span class="skill-chip bg-yellow-100 text-yellow-700">Html/Css</span>
+                            <span class="skill-chip bg-purple-100 text-purple-700">Tailwind css</span>
+                        </div>
+                        <div class="flex justify-center space-x-4">
+                            <a href="https://github.com/BOBSRIJAN" class="social-icon bg-gray-200 hover:bg-blue-600">
+                                <i class="fab fa-github text-gray-600 group-hover:text-white"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/srijan-ray-5b1967282/" class="social-icon bg-gray-200 hover:bg-blue-600">
+                                <i class="fab fa-linkedin text-gray-600 group-hover:text-white"></i>
+                            </a>
+                            <a href="https://srijan-dev.onrender.com/" target="_blank" class="social-icon bg-gray-200 hover:bg-indigo-500 p-2 rounded-full transition">
+                                <i class="fas fa-globe text-gray-600 group-hover:text-white"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="bg-white/40 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-8 hover:-translate-y-2 transition duration-300 group">
+                    <div class="relative w-32 h-32 mx-auto mb-6">
+                        <img src="{% static 'img/arinjoy.jpg' %}" alt="ARINJOY ROY CHOUDHURY" class="w-32 h-32 object-cover rounded-full shadow-lg border-4 border-white">
+                        <span class="absolute -bottom-2 -right-2 w-10 h-10 bg-pink-500 rounded-full border-4 border-white flex items-center justify-center">
+                            <i class="fas fa-palette text-white text-sm"></i>
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold mb-1">ARINJOY ROY CHOUDHURY</h3>
+                        <p class="text-pink-600 font-semibold mb-2"> Assistive Developer and UI/UX Designer</p>
+                        <p class="text-gray-600 mb-4">Crafts intuitive and engaging user experiences through clean design.</p>
+                        <div class="flex flex-wrap justify-center gap-2 mb-6">
+                            <span class="skill-chip bg-orange-100 text-orange-700">HTML/Css</span>
+                            <span class="skill-chip bg-green-100 text-green-700">Django</span>
+                            <span class="skill-chip bg-blue-100 text-blue-700">Tailwind Css</span>
+                            <span class="skill-chip bg-pink-100 text-pink-700">Figma</span>
+                        </div>
+                        <div class="flex justify-center space-x-4">
+                            <a href="https://github.com/Rickyroy2003" class="social-icon bg-gray-200 hover:bg-pink-600">
+                                <i class="fab fa-github text-gray-600 group-hover:text-white"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/arinjoy-roy-choudhury-836785294/" class="social-icon bg-gray-200 hover:bg-pink-600">
+                                <i class="fab fa-linkedin text-gray-600 group-hover:text-white"></i>
+                            </a>
+                            {% comment %} <a href="#" class="social-icon bg-gray-200 hover:bg-pink-600">
+                                <i class="fas fa-envelope text-gray-600 group-hover:text-white"></i>
+                            </a> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Project -->
+            <div class="mt-20 text-center bg-white/70 backdrop-blur-xl border border-white/30 shadow-xl rounded-3xl p-10">
+                <h3 class="text-3xl font-bold mb-4">About This Project</h3>
+                <p class="text-gray-600 max-w-3xl mx-auto text-lg">
+                    This is an Inventory Management System built using Django. 
+                    The system manages different user roles including Admin, 
+                    Farmers, Shopkeepers, and general Users. It provides functionalities 
+                    such as inventory management, user authentication and many more.
+                </p>
+                <div class="grid md:grid-cols-3 gap-8 mt-10">
+                    <div class="project-stat from-blue-50 to-blue-100 text-blue-600">
+                        <i class="fas fa-code"></i>
+                        <h4>1000+</h4>
+                        <p>Lines of Code</p>
+                    </div>
+                    <div class="project-stat from-green-50 to-green-100 text-green-600">
+                        <i class="fas fa-clock"></i>
+                        <h4>200+</h4>
+                        <p>Hours Invested</p>
+                    </div>
+                    <div class="project-stat from-purple-50 to-purple-100 text-purple-600">
+                        <i class="fas fa-heart"></i>
+                        <h4>100%</h4>
+                        <p>Built with Love</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="mt-16 text-center">
+                <h3 class="text-2xl font-bold mb-4">Want to Get in Touch?</h3>
+                <p class="text-gray-600 mb-6">
+                    We’d love to collaborate or hear your feedback.
+                </p>
+                <a href="#" class="inline-flex items-center px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg transform hover:scale-105 transition">
+                    <i class="fas fa-envelope mr-2"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from Auth.decorators import custom_login_required
 from .models import Item
 from django.contrib import messages
@@ -26,7 +26,6 @@ def Manage_items(request):
     search_term = ""
     search_by = ""
     user_id = request.session.get('user_id')
-    print(user_id)
     
     if request.method == "POST":
         action = request.POST.get("action")
@@ -169,10 +168,30 @@ def Inventory_reports(request):
 
 @custom_login_required
 def Market_places(request):
+    search_term = request.POST.get("search_term")
+    search_by = request.POST.get("search_by")
+    user_id = request.session.get('user_id')
+   
+    if search_term:
+        if search_by == "name":
+            items = Item.objects.filter(name__icontains=search_term, userid=user_id)
+        elif search_by == "category":
+            items = Item.objects.filter(category__icontains=search_term, userid=user_id)
+        elif search_by == "date":
+            items = Item.objects.filter(exp_date__icontains=search_term, userid=user_id)
+        else:
+            items = Item.objects.filter(userid=user_id)
+        return render(request, "Farmers/MarketPlaces.html", {'items': items})
+    
     user_id = request.session.get('user_id')
     items = Item.objects.filter(userid=user_id)
     
     return render(request, "Farmers/MarketPlaces.html", {'items': items})
+
+@custom_login_required
+def Market_places_send_items(request, id):
+    
+    return render(request, 'Farmers/Update.html')
     
 
 def Farmers_logout(request):

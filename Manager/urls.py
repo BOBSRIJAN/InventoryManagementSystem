@@ -7,6 +7,7 @@ urlpatterns = [
     path('', LandingPage, name='LandingPage'),
     path('contact/', ContactUs, name='ContactUs'),
     path('about/', AboutUs, name='AboutUs'),
+    path("dev's/", dev, name="dev"),
     # my app's
     path('customAdmin/', include('Admin.urls')),
     path('login/', include('Auth.urls')),
