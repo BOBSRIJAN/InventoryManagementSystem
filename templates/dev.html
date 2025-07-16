@@ -12,6 +12,28 @@
 </head>
 <body class="bg-gradient-to-br  from-sky-300 via-white to-emerald-200">
 
+    <!-- Dynamic Island Menu -->
+  <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
+      <input type="checkbox" id="menuToggle" class="peer hidden">
+      <label for="menuToggle"
+              class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
+           <div class="flex justify-between items-center">
+              <span class="text-sm font-semibold">
+                <a href="{%url 'dev'%}">AgroSmart</a>
+              </span>
+              <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
+          </div>
+      </label>
+      <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
+          <nav class="space-y-2">
+            <a href="{%url 'LandingPage'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Home</a>
+            <a href="{%url 'login'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Login</a>
+            <a href="{%url 'register'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Register</a>
+            <a href="{%url 'AboutUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">About us</a>
+            <a href="{%url 'ContactUs'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Contact us</a>
+          </nav>
+      </div>
+  </div>
     <!-- Section: Meet Our Team -->
     <section class="py-20 px-4 sm:px-6 lg:px-8">
         <div class="max-w-6xl mx-auto">
