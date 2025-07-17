@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect,HttpResponse
 from Auth.decorators import custom_login_required
-from .models import Item
+from .models import Item, MarketPlaces
 from django.contrib import messages
 from datetime import datetime, date
 
@@ -190,8 +190,29 @@ def Market_places(request):
 
 @custom_login_required
 def Market_places_send_items(request, id):
-    
-    return render(request, 'Farmers/Update.html')
+    user_id = request.session.get('user_id')
+    if request.method == "POST":
+        name = request.POST.get("name")
+        quantity = request.POST.get("quantity")
+        category = request.POST.get("category")
+        price = request.POST.get("price")
+        image = request.FILES.get("image")
+        
+        update = Item.objects.get(id=id)
+        update.isInMarketPlaces = True
+        update.save()
+        
+        MarketPlaces.objects.create(
+            name=name,
+            quantity=quantity,
+            category=category,
+            price=price,
+            image=image,
+            userid=request.session.get('user_id') 
+        )
+    # market_items = MarketPlaces.objects.filter(userid=user_id)
+    items = Item.objects.get(id=id)
+    return render(request, 'Farmers/Update.html', {'items': items})
     
 
 def Farmers_logout(request):
