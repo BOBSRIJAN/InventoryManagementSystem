@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect,HttpResponse
+from django.shortcuts import render, redirect
 from Auth.decorators import custom_login_required
-from .models import Item, MarketPlaces
+from .models import Item
 from django.contrib import messages
 from datetime import datetime, date
 
@@ -157,6 +157,8 @@ def Inventory_reports(request):
 
     non_expired = [(item, used_percent) for item, used_percent, _ in non_expired]
     expired = [(item, used_percent) for item, used_percent, _ in expired]
+    
+    
 
     return render(request, "Farmers/InventoryReports.html", {
         "pie_chart_data": pie_chart_data,
@@ -185,35 +187,48 @@ def Market_places(request):
     
     user_id = request.session.get('user_id')
     items = Item.objects.filter(userid=user_id)
-    
     return render(request, "Farmers/MarketPlaces.html", {'items': items})
 
+    
 @custom_login_required
 def Market_places_send_items(request, id):
-    user_id = request.session.get('user_id')
+    try:
+        update = Item.objects.get(id=id)
+    except Item.DoesNotExist:
+        messages.error(request, "Item not found.")
+        return redirect('Market_places')
+
     if request.method == "POST":
         name = request.POST.get("name")
         quantity = request.POST.get("quantity")
         category = request.POST.get("category")
         price = request.POST.get("price")
+        description = request.POST.get("description")
         image = request.FILES.get("image")
-        
-        update = Item.objects.get(id=id)
-        update.isInMarketPlaces = True
-        update.save()
-        
-        MarketPlaces.objects.create(
-            name=name,
-            quantity=quantity,
-            category=category,
-            price=price,
-            image=image,
-            userid=request.session.get('user_id') 
-        )
-    # market_items = MarketPlaces.objects.filter(userid=user_id)
-    items = Item.objects.get(id=id)
-    return render(request, 'Farmers/Update.html', {'items': items})
+
+        if all([name, quantity, category, price, description]):
+            
+            if not update.isInMarketPlaces and not image and not update.image:
+                messages.error(request, "Please upload an image before submitting to the marketplace.")
+            else:
+                update.name = name
+                update.quantity = quantity
+                update.category = category
+                update.price = price
+                update.description = description
+
+                if image:
+                    update.image = image
+
+                update.isInMarketPlaces = True
+                update.save()
+                messages.success(request, "Item successfully updated and sent to marketplace.")
+                return redirect('Market_places')
+        else:
+            messages.error(request, "All fields are required.")
     
+    return render(request, 'Farmers/Update.html', {'items': update})
+
 
 def Farmers_logout(request):
     request.session.flush()
