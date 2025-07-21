@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from Auth.decorators import custom_login_required
 from .models import Item
 from django.contrib import messages
-from datetime import datetime, date
+from datetime import datetime, date,timedelta
 
 @custom_login_required
 def Farmers(request):
@@ -32,6 +32,34 @@ def Manage_items(request):
         item_id = request.POST.get("id")
         search_term = request.POST.get("search_term")
         search_by = request.POST.get("search_by")
+        
+        try:
+            price = float(request.POST["price"])
+            add_date = datetime.strptime(request.POST["add_date"], "%Y-%m-%d").date()
+            exp_date = datetime.strptime(request.POST["exp_date"], "%Y-%m-%d").date()
+
+            today = datetime.now().date()
+            max_date = today + timedelta(days=365)
+
+            if price <= 0:
+                messages.error(request, "Price must be greater than 0.")
+                return redirect('Manage_items')
+
+            if not (today < add_date <= max_date):
+                messages.error(request, "Add date must be a future date within 1 year.")
+                return redirect('Manage_items')
+
+            if not (today < exp_date <= max_date):
+                messages.error(request, "Expire date must be a future date within 1 year.")
+                return redirect('Manage_items')
+
+            if exp_date <= add_date:
+                messages.error(request, "Expire date must be after Add date.")
+                return redirect('Manage_items')
+
+        except (ValueError, KeyError):
+            messages.error(request, "Invalid input for price or dates.")
+            return redirect('Manage_items')
 
         if action == "add":
             Item.objects.create(
@@ -158,7 +186,9 @@ def Inventory_reports(request):
     non_expired = [(item, used_percent) for item, used_percent, _ in non_expired]
     expired = [(item, used_percent) for item, used_percent, _ in expired]
     
-    
+    for item, _ in expired:
+        item.isExpired = True
+        item.save()
 
     return render(request, "Farmers/InventoryReports.html", {
         "pie_chart_data": pie_chart_data,
@@ -185,9 +215,9 @@ def Market_places(request):
             items = Item.objects.filter(userid=user_id)
         return render(request, "Farmers/MarketPlaces.html", {'items': items})
     
-    user_id = request.session.get('user_id')
-    items = Item.objects.filter(userid=user_id)
-    return render(request, "Farmers/MarketPlaces.html", {'items': items})
+    items = Item.objects.filter(userid=user_id, isExpired=False)
+    Market_places = items.filter(isInMarketPlaces=True, userid=user_id)
+    return render(request, "Farmers/MarketPlaces.html", {'items': items, 'Market_places': Market_places})
 
     
 @custom_login_required
@@ -229,6 +259,16 @@ def Market_places_send_items(request, id):
     
     return render(request, 'Farmers/Update.html', {'items': update})
 
+
+def Delete_market_item(request, id):
+    try:
+        item = Item.objects.get(id=id)
+        item.isInMarketPlaces = False
+        item.save()
+        messages.success(request, "Item successfully deleted.")
+    except Item.DoesNotExist:
+        messages.error(request, "Item not found.")
+    return redirect('Market_places')
 
 def Farmers_logout(request):
     request.session.flush()

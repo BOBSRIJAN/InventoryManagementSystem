@@ -105,19 +105,23 @@
         <th class="px-4 py-3 font-semibold">Category</th>
         <th class="px-4 py-3 font-semibold">Price (₹)</th>
         <th class="px-4 py-3 font-semibold">Description</th>
+        <th class="px-4 py-3 font-semibold">Delete</th>
       </tr>
     </thead>
     <tbody class="bg-white/60 divide-y divide-gray-100 rounded-2xl">
-      {% for item in items %}
-      {% if item.isInMarketPlaces %}
+      {% for item in Market_places %}
       <tr class="hover:bg-gray-100 transition-all duration-150">
         <td class="px-4 py-2 font-medium">{{ item.name }}</td>
         <td class="px-4 py-2">{{ item.quantity }}</td>
         <td class="px-4 py-2">{{ item.category }}</td>
         <td class="px-4 py-2">₹{{ item.price }}</td>
         <td class="px-4 py-2">{{ item.description }}</td>
+        <td class="px-4 py-2"> <a href="{% url 'delete_market_item' item.id %}"
+            class="bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-medium rounded-md px-2 py-1 transition">
+            Delete
+          </a>
+      </td>
       </tr>
-      {% endif %}
       {% empty %}
       <tr>
         <td colspan="6" class="px-4 py-3 text-center text-gray-500">No marketplace items found.</td>
