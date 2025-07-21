@@ -195,54 +195,72 @@
       <!-- Item List Section -->
       <div class="xl:col-span-3">
         <!-- Search Bar -->
-        <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 mb-8">
-          <div class="flex items-center mb-4">
-            <div class="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl flex items-center justify-center mr-3">
-              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div class="relative mb-12">
+      <!-- Background decoration -->
+      <div class="absolute inset-0 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-blue-500/10 rounded-3xl blur-xl"></div>
+      
+      <div class="relative bg-white/70 backdrop-blur-2xl border border-white/40 rounded-3xl shadow-2xl p-8">
+        <div class="flex items-center mb-6">
+          <div class="relative">
+            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
             </div>
-            <h3 class="text-xl font-bold text-gray-800">Search Items</h3>
+            <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
           </div>
-          
-          <form method="POST" class="space-y-4">
-            {% csrf_token %}
-            <div class="flex flex-col sm:flex-row gap-4">
-              <div class="flex-1">
-                <div class="relative">
-                  <input type="text" id="search_term" name="search_term" placeholder="Search your items..."
-                         value="{{ search_term|default:'' }}"
-                         class="w-full pl-12 pr-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 placeholder-gray-400"
-                         aria-label="Search items">
-                  <div class="absolute inset-y-0 left-0 flex items-center pl-3">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                    </svg>
-                  </div>
+          <div>
+            <h3 class="text-2xl font-bold text-gray-800">Search Items</h3>
+            <p class="text-gray-600">Find what you're looking for quickly</p>
+          </div>
+        </div>
+        
+        <form method="POST" class="space-y-6">
+          {% csrf_token %}
+          <div class="flex flex-col lg:flex-row gap-4">
+            <div class="flex-1">
+              <div class="relative group">
+                <input type="text" id="search_term" name="search_term" placeholder="Search your items..."
+                       value="{{ search_term|default:'' }}"
+                       class="w-full pl-14 pr-6 py-4 bg-white/80 border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 placeholder-gray-400 text-lg shadow-lg hover:shadow-xl group-hover:border-indigo-300"
+                       aria-label="Search items">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4">
+                  <svg class="w-6 h-6 text-gray-400 group-hover:text-indigo-500 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
                 </div>
               </div>
-              <div class="sm:w-48">
-                <select id="search_by" name="search_by"
-                        class="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 appearance-none">
-                  <option value="name" {% if search_by == 'name' %}selected{% endif %}>Search by Item Name</option>
-                  <option value="category" {% if search_by == 'category' %}selected{% endif %}>Search by Item Category</option>
-                  <option value="date" {% if search_by == 'date' %}selected{% endif %}>Search by Expiry Date</option>
-                </select>
-              </div>
+            </div>
+            
+            <div class="lg:w-64">
+              <select id="search_by" name="search_by"
+                      class="w-full px-6 py-4 bg-white/80 border-2 border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300 appearance-none text-lg shadow-lg hover:shadow-xl cursor-pointer hover:border-indigo-300">
+                <option value="name" {% if search_by == 'name' %}selected{% endif %}>🏷️ Item Name</option>
+                <option value="category" {% if search_by == 'category' %}selected{% endif %}>📂 Category</option>
+                <option value="date" {% if search_by == 'date' %}selected{% endif %}>📅 Expiry Date</option>
+              </select>
+            </div>
+            
+            <div class="flex gap-3">
               <button type="submit" name="action" value="search"
-                      class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                      class="px-8 py-4 bg-gradient-to-r from-indigo-500 via-purple-600 to-blue-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-indigo-500/30 transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center space-x-3 min-w-fit">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                <span class="hidden sm:inline">Search</span>
+                <span>Search</span>
               </button>
-              <a href={%url 'Manage_items'%} class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
-                Clear 
-              </a>       
+              
+              <a href="{% url 'Market_places' %}" 
+                 class="px-8 py-4 bg-gradient-to-r from-gray-500 to-gray-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-gray-500/30 transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center space-x-3">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                <span>Clear</span>
+              </a>
             </div>
-          </form>
-        </div>
-
+          </div>
+        </form>
+      </div>
         <!-- Item List -->
         {% if items %}
           <div class=" backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl overflow-hidden">
