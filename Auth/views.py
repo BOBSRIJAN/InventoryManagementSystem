@@ -24,7 +24,7 @@ def login(request):
                 return redirect('Farmers')
             
             elif user.role == 'Shopkeeper':
-                return redirect('Farmers')
+                return redirect('Shopkeeper')
             
             elif user.role == 'user':
                 return
@@ -54,7 +54,7 @@ def register(request):
             new_user.save()
             
         except Exception as e:
-            messages.error(request, f"Unexpected exception occurs please try again! ->{e}")
+            messages.error(request, f"User email already exists")
             
         return redirect('login')
     

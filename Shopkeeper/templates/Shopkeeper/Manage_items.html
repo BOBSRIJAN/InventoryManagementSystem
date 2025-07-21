@@ -1,0 +1,372 @@
+{% extends "Shopkeeper/ShopkeeperDashboard.html" %}
+{% load static %}
+
+{% block content %}
+<main class="min-h-screen py-8">
+  <div class="w-full px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">
+        Manage Your Items
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Add, edit, and organize your farm products with our intuitive management system
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+      <!-- Sidebar Form: Add / Edit Item -->
+      <div class="xl:col-span-1">
+        <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-8 sticky top-8 hover:shadow-2xl transition-all duration-300">
+          <div class="flex items-center mb-6">
+            <div class="w-12 h-12 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">
+              {% if edit_item %}Edit Item{% else %}Add New Item{% endif %}
+            </h2>
+          </div>
+          
+          <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ edit_item.id|default:'' }}">
+
+            <!-- Item Name -->
+            <div class="space-y-2">
+              <label for="name" class="block text-sm font-semibold text-gray-700">Item Name</label>
+              <div class="relative">
+                <input type="text" id="name" name="name" value="{{ edit_item.name|default:'' }}" 
+                       placeholder="Enter item name" required
+                       class="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-400"
+                       aria-required="true">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                  </svg>
+                </div>
+              </div>
+              {% if form_errors.name %}
+                <p class="text-sm text-red-500 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ form_errors.name }}
+                </p>
+              {% endif %}
+            </div>
+
+            <!-- Quantity -->
+            <div class="space-y-2">
+              <label for="quantity" class="block text-sm font-semibold text-gray-700">Quantity</label>
+              <div class="relative">
+                <input type="number" id="quantity" name="quantity" value="{{ edit_item.quantity|default:'' }}" 
+                       placeholder="Enter quantity" min="0" required
+                       class="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-400"
+                       aria-required="true">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                  </svg>
+                </div>
+              </div>
+              {% if form_errors.quantity %}
+                <p class="text-sm text-red-500 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ form_errors.quantity }}
+                </p>
+              {% endif %}
+            </div>
+
+            <!-- Category -->
+            <div class="space-y-2">
+              <label for="category" class="block text-sm font-semibold text-gray-700">Category</label>
+              <div class="relative">
+                <input type="text" id="category" name="category" value="{{ edit_item.category|default:'' }}" 
+                       placeholder="e.g., Vegetables, Fruits, Grains" required
+                       class="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-400"
+                       aria-required="true">
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                  </svg>
+                </div>
+              </div>
+              {% if form_errors.category %}
+                <p class="text-sm text-red-500 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ form_errors.category }}
+                </p>
+              {% endif %}
+            </div>
+
+
+            <!-- add date -->
+            <div class="space-y-2">
+              <label for="add date" class="block text-sm font-semibold text-gray-700">Add date</label>
+              <div class="relative">
+                <input type="date" id="add_date" name="add_date" step="0.01" value="{{ edit_item.add_date|default:'' }}" 
+                       placeholder="dd-mm-yyyy" min="0" required
+                       class="w-full pl-8 pr-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-400"
+                       aria-required="true">
+              </div>
+              {% if form_errors.add_date %}
+                <p class="text-sm text-red-500 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ form_errors.add_date }}
+                </p>
+              {% endif %}
+            </div>
+
+            <!--exp date -->
+            <div class="space-y-2">
+              <label for="exp_date" class="block text-sm font-semibold text-gray-700">Expiry date</label>
+              <div class="relative">
+                <input type="date" id="exp_date" name="exp_date" step="0.01" value="{{ edit_item.exp_date|default:'' }}" 
+                       placeholder="dd-mm-yyyy" min="0" required
+                       class="w-full pl-8 pr-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-400"
+                       aria-required="true">
+              </div>
+              {% if form_errors.exp_date %}
+                <p class="text-sm text-red-500 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ form_errors.exp_date }}
+                </p>
+              {% endif %}
+            </div>
+
+            <!-- Price -->
+            <div class="space-y-2">
+              <label for="price" class="block text-sm font-semibold text-gray-700">Price (₹) / unit</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <span class="text-gray-500 text-lg">₹</span>
+                </div>
+                <input type="number" id="price" name="price" step="0.01" value="{{ edit_item.price|default:'' }}" 
+                       placeholder="0.00" min="0" required
+                       class="w-full pl-8 pr-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 placeholder-gray-400"
+                       aria-required="true">
+              </div>
+              {% if form_errors.price %}
+                <p class="text-sm text-red-500 flex items-center">
+                  <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                  </svg>
+                  {{ form_errors.price }}
+                </p>
+              {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
+              <button type="submit" name="action" value="{% if edit_item %}update{% else %}add{% endif %}"
+                      class="w-full px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:from-emerald-600 hover:to-teal-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>{% if edit_item %}Update Item{% else %}Add Item{% endif %}</span>
+              </button>
+            </div>
+
+            {% if edit_item %}
+              <div class="text-center">
+                <a href="{% url 'Manage_items' %}" 
+                   class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                  Cancel Edit
+                </a>
+              </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- Item List Section -->
+      <div class="xl:col-span-3">
+        <!-- Search Bar -->
+        <div class="bg-white/40 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-6 mb-8">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-gradient-to-r from-indigo-400 to-purple-500 rounded-xl flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Search Items</h3>
+          </div>
+          
+          <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            <div class="flex flex-col sm:flex-row gap-4">
+              <div class="flex-1">
+                <div class="relative">
+                  <input type="text" id="search_term" name="search_term" placeholder="Search your items..."
+                         value="{{ search_term|default:'' }}"
+                         class="w-full pl-12 pr-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 placeholder-gray-400"
+                         aria-label="Search items">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="sm:w-48">
+                <select id="search_by" name="search_by"
+                        class="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 appearance-none">
+                  <option value="name" {% if search_by == 'name' %}selected{% endif %}>Search by Item Name</option>
+                  <option value="category" {% if search_by == 'category' %}selected{% endif %}>Search by Item Category</option>
+                  <option value="date" {% if search_by == 'date' %}selected{% endif %}>Search by Expiry Date</option>
+                </select>
+              </div>
+              <button type="submit" name="action" value="search"
+                      class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <span class="hidden sm:inline">Search</span>
+              </button>
+              <a href={%url 'Manage_items'%} class="px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                Clear 
+              </a>       
+            </div>
+          </form>
+        </div>
+
+        <!-- Item List -->
+        {% if items %}
+          <div class=" backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl overflow-hidden">
+            <div class="p-6 border-b border-gray-200/50">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-10 h-10 bg-gradient-to-r from-green-400 to-emerald-500 rounded-xl flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                    </svg>
+                  </div>
+                  <h3 class="text-xl font-bold text-gray-800">Your Items</h3>
+                </div>
+                <div class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-semibold">
+                  {{ items|length }} item{{ items|length|pluralize }}
+                </div>
+              </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Item</th>
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Quantity</th>
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Price / pre-unit</th>
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Category</th>
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Date</th>
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Expiry Date</th>
+                    <th class="py-4 px-6 text-left text-sm font-bold text-gray-700 uppercase tracking-wider">Update/Delete</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  {% for item in items %}
+                    <tr class="hover:bg-gradient-to-r hover:from-emerald-50 hover:to-teal-50 transition-all duration-200">
+                      <td class="py-4 px-6">
+                        <div class="flex items-center">
+                          <div class="w-10 h-10 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-sm">{{ item.name|first|upper }}</span>
+                          </div>
+                          <div>
+                            <div class="text-sm font-semibold text-gray-900">{{ item.name }}</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-6">
+                        <div class="flex items-center">
+                          <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
+                            {{ item.quantity }}
+                          </span>
+                        </div>
+                      </td>
+                      <td class="py-4 px-6">
+                        <div class="text-lg font-bold text-green-600">₹{{ item.price }}</div>
+                      </td>
+                      <td class="py-4 px-6">
+                        <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {{ item.category }}
+                        </span>
+                      </td>
+                      <td class="py-4 px-6">
+                        <div class="text-sm text-black-600">{{ item.add_date}}</div>
+                      </td>
+                      <td class="py-4 px-6">
+                        <div class="text-sm text-black-600">{{ item.exp_date }}</div>
+                      </td>
+                      <td class="py-4 px-6">
+                        <div class="flex space-x-2">
+                          <a href="?edit={{ item.id }}"
+                             class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-semibold rounded-lg shadow hover:from-amber-500 hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200"
+                             aria-label="Edit {{ item.name }}">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            Edit
+                          </a>
+                          <form method="POST" class="inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ item.id }}">
+                            <button type="submit" name="action" value="delete"
+                                    class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-semibold rounded-lg shadow hover:from-red-600 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200"
+                                    aria-label="Delete {{ item.name }}">
+                              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                              </svg>
+                              Delete
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% else %}
+          <div class="bg-white/80 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-12 text-center">
+            <div class="w-20 h-20 bg-gradient-to-r from-gray-300 to-gray-400 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">No Items Found</h3>
+            <p class="text-gray-600 mb-6">
+              {% if search_term %}
+                No items match your search criteria. Try adjusting your search or add a new item.
+              {% else %}
+                You haven't added any items yet. Start by adding your first item!
+              {% endif %}
+            </p>
+            {% if search_term %}
+              <a href="{% url 'Manage_items' %}" 
+                 class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Clear Search
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

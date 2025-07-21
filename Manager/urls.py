@@ -13,6 +13,6 @@ urlpatterns = [
     path('customAdmin/', include('Admin.urls')),
     path('login/', include('Auth.urls')),
     path('', include('Farmers.urls')),
-    path('Shopkeeper/', include('Shopkeeper.urls')),
-    path('User/', include('User.urls')),
+    path('', include('Shopkeeper.urls')),
+    path('', include('User.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

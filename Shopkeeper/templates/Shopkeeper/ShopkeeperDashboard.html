@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="icon" type="image/png/ico" href="{% static 'img/favicon.ico' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/Dashboard.css' %}"/>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-sky-300 via-white to-emerald-200">
+
+<!-- nav -->
+<div class="fixed top-4 left-1/2 justify-between  transform -translate-x-1/2 z-50">
+  <input type="checkbox" id="menuToggle" class="peer hidden">
+  <div class="flex items-center justify-between bg-gray-800 text-white rounded-full px-4 py-2 shadow-lg w-[190px] md:w-[220px] transition-all duration-300 hover:scale-105">
+    <label for="menuToggle" class="flex items-center justify-between w-full cursor-pointer">
+      <span class="text-sm font-semibold">
+        <a href="{% url 'Shopkeeper' %}">Dashboard</a>
+      </span>
+      <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
+    </label>
+    <a href="{% url 'shopkeeper_logout' %}" title="Logout"
+       class="ml-4 bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-md transition-all duration-300">
+      <i class="fas fa-sign-out-alt text-lg"></i>
+    </a>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked:max-h-[500px] peer-checked:opacity-100 peer-checked:scale-100 mt-2 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl w-full max-w-[300px]">
+    <nav class="space-y-2">
+      <a href="{%url 'Shopkeeper_Manage_items'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Manage item's</a>
+      <a href="{%url 'Shopkeeper_Inventory_reports'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Inventory Reports</a>
+      <a href="{%url 'Shopkeeper_Market_places'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Marketplaces</a>
+      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Customer Feedback</a>
+    </nav>
+  </div>
+</div>
+
+  <section class="pt-28 flex-grow relative z-10">
+    {% if messages %}
+    <div class="max-w-3xl mx-auto px-1 sm:px-2 lg:px-3 py-6 space-y-4">
+      {% for message in messages %}
+      <div class="flex items-start justify-between p-4 rounded-lg shadow-md
+                  {% if message.tags == 'error' %}
+                    bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200
+                  {% elif message.tags == 'success' %}
+                    bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                  {% elif message.tags == 'warning' %}
+                    bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                  {% else %}
+                    bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
+                  {% endif %}
+                  ">
+        <div class="flex-1">
+          <p class="font-medium">{{ message }}</p>
+        </div>
+        <button type="button" class="ml-4 text-xl font-bold leading-none focus:outline-none" onclick="this.parentElement.remove()">&times;</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+{% block content %}
+  <!-- Main Content -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 pt-8 pb-12">
+    <h1 class="text-5xl font-extrabold mb-12 text-center text-indigo-900">Dashboard</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-16">
+
+      <!-- Manage item's Card -->
+      <a href="{% url 'Shopkeeper_Manage_items'%}" class="animate-fade-in-up group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+        <div class="flex items-center space-x-4 mb-3">
+          <div class="bg-blue-100 text-blue-600 p-2 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Manage item's</h2>
+        </div>
+        <p class="text-gray-600">Manage and view all the item's hear.</p>
+      </a>
+
+      <!-- Inventory Reports -->
+      <a href="{% url 'Shopkeeper_Inventory_reports' %}" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+        <div class="flex items-center space-x-4 mb-3">
+          <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5v4m4-4v6m4-6v8m-8 4v2m4-2v2m-8-2h8"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Inventory Reports</h2>
+        </div>
+        <p class="text-gray-600">Your Inventory Reports for all the item's.</p>
+      </a>
+
+      <!-- Marketplaces  -->
+      <a href="{%url 'Shopkeeper_Market_places'%}" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+        <div class="flex items-center space-x-4 mb-3">
+          <div class="bg-green-100 text-green-600 p-2 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h18v18H3V3z"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Marketplaces</h2>
+        </div>
+        <p class="text-gray-600">One Step to Selling Smarter.</p>
+      </a>
+
+      <!-- Feedback -->
+      <a href="#feedback" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+        <div class="flex items-center space-x-4 mb-3">
+          <div class="bg-red-100 text-red-600 p-2 rounded-full">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold">Customer Feedback</h2>
+        </div>
+        <p class="text-gray-600">Review messages and feedback from customer.</p>
+      </a>
+
+    </div>
+  </main>
+{% endblock %}
+
+  <!-- Footer -->
+  <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h2 class="text-xl font-bold">AgroSmart</h2>
+        <p class="mt-2 text-sm text-gray-600">Empowering smart inventory and user management.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#dashboard" class="hover:text-blue-600">Dashboard</a></li>
+          <li><a href="#users" class="hover:text-blue-600">Users</a></li>
+          <li><a href="#inventory" class="hover:text-blue-600">Farmer Inventory</a></li>
+          <li><a href="#inventory" class="hover:text-blue-600">Shopkeeper Inventory</a></li>
+          <li><a href="#reports" class="hover:text-blue-600">Reports</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Contact</h3>
+        <p class="text-sm">Email: <a href="mailto:support@agrosmart.com" class="text-blue-600 hover:underline">mr.srijanray@gmail.com</a></p>
+        <p class="text-sm">Phone: +91 7044285046</p>
+      </div>
+    </div>
+    <div class="border-t border-white/30 text-center text-sm py-4 bg-white/10 backdrop-blur-sm">
+      &copy; 2025 AgroSmart. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>
