@@ -8,5 +8,7 @@ urlpatterns = [
     path("farmers_market_places/", Market_places, name="Market_places"),
     path("farmers_market_places_send_items/<str:id>/", Market_places_send_items, name="Market_places_send_items"),
     path("farmers_delete_market_item/<str:id>/", Delete_market_item, name="delete_market_item"),
+    path('farmers_agri_vision/', AgriVision, name='AgriVision'),
+    path('farmers_agri_bot/', AgriBot, name='AgriBot'),
     path('farmers_logout/', Farmers_logout, name='Farmers_logout'),
 ]

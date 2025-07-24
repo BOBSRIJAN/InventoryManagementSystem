@@ -34,8 +34,8 @@
       <a href="{%url 'Manage_items'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Manage item's</a>
       <a href="{%url 'Inventory_reports'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Inventory Reports</a>
       <a href="{%url 'Market_places'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Marketplaces</a>
-      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Ai Feacher</a>
-      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Ai Feacher</a>
+      <a href="{% url "AgriVision" %}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">AgriVision</a>
+      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">AgriBot</a>
       <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Customer Feedback</a>
     </nav>
   </div>
@@ -112,29 +112,29 @@
       </a>
 
       <!-- Ai -->
-      <a href="#inventory" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+      <a href="{% url "AgriVision" %}" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-green-100 text-green-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12v-1a3 3 0 013-3a3 3 0 013 3v1m0 0a3 3 0 013 3v1a3 3 0 01-3 3a3 3 0 01-3-3v-1m0-3H9m6 0h3M6 9h1v6H6M6 9l-1 3 1 3"></path>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold">Ai Feacher</h2>
+          <h2 class="text-xl font-semibold">AgriVision</h2>
         </div>
-        <p class="text-gray-600">Upcomming Ai Feacher </p>
+        <p class="text-gray-600">AI-Powered Plants Disease prediction for Farmers.</p>
       </a>
 
       <!-- Ai -->
-      <a href="#reports" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+      <a href="#" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-purple-100 text-purple-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 12v-1a3 3 0 013-3a3 3 0 013 3v1m0 0a3 3 0 013 3v1a3 3 0 01-3 3a3 3 0 01-3-3v-1m0-3H9m6 0h3M6 9h1v6H6M6 9l-1 3 1 3"></path>
             </svg>
           </div>
-          <h2 class="text-xl font-semibold">Ai Feacher</h2>
+          <h2 class="text-xl font-semibold">AgriBot</h2>
         </div>
-        <p class="text-gray-600">Upcomming Ai Feacher</p>
+        <p class="text-gray-600">AI-Powered Chatbot for Farmers.</p>
       </a>
 
       <!-- Feedback -->
