@@ -19,7 +19,7 @@
               class="bg-gray-800 text-white rounded-full px-6 py-3 shadow-lg cursor-pointer w-40 md:w-48 block transition-all duration-300 hover:scale-105">
            <div class="flex justify-between items-center">
               <span class="text-sm font-semibold">
-                <a href="{%url 'dev'%}">AgroSmart</a>
+                <a href="{%url 'LandingPage'%}">AgroSmart</a>
               </span>
               <i class="fas fa-bars text-lg peer-checked:rotate-90 transition-transform duration-300"></i>
           </div>
@@ -127,12 +127,12 @@
                 <div class="grid md:grid-cols-3 gap-8 mt-10">
                     <div class="project-stat from-blue-50 to-blue-100 text-blue-600">
                         <i class="fas fa-code"></i>
-                        <h4>1000+</h4>
+                        <h4>5000+</h4>
                         <p>Lines of Code</p>
                     </div>
                     <div class="project-stat from-green-50 to-green-100 text-green-600">
                         <i class="fas fa-clock"></i>
-                        <h4>200+</h4>
+                        <h4>500+</h4>
                         <p>Hours Invested</p>
                     </div>
                     <div class="project-stat from-purple-50 to-purple-100 text-purple-600">
@@ -155,5 +155,32 @@
             </div>
         </div>
     </section>
+
+  <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h2 class="text-xl font-bold">AgroSmart</h2>
+        <p class="mt-2 text-sm text-gray-600">Empowering smart inventory and user management.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="{% url "login" %}" class="hover:text-blue-600">Login</a></li>
+          <li><a href="{% url "register" %}" class="hover:text-blue-600">Register</a></li>
+          <li><a href="{% url "AboutUs" %}" class="hover:text-blue-600">About us</a></li>
+          <li><a href="{% url "ContactUs" %}" class="hover:text-blue-600">Contact us</a></li>
+          <li><a href="{% url "dev" %}" class="hover:text-blue-600">Dev's</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Contact</h3>
+        <p class="text-sm">Email: <a href="mailto:support@agrosmart.com" class="text-blue-600 hover:underline">mr.srijanray@gmail.com</a></p>
+        <p class="text-sm">Phone: +91 7044285046</p>
+      </div>
+    </div>
+    <div class="border-t border-white/30 text-center text-sm py-4 bg-white/10 backdrop-blur-sm">
+      &copy; 2025 AgroSmart. All rights reserved.
+    </div>
+  </footer>
 </body>
 </html>

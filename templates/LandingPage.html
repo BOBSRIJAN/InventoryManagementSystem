@@ -104,11 +104,11 @@
                     Why Choose <span class="gradient-text">AgroSmart</span>?
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto font-medium">
-                    Discover the powerful features that make AgroSmart the #1 choice for modern farmers and agricultural businesses.
+                    Discover the powerful Ai Modern features that make AgroSmart the #1 choice for modern farmers and agricultural businesses.
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <!-- Feature 1 -->
                 <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-left">
                     <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 animate-float">
@@ -127,6 +127,21 @@
                 <!-- Feature 2 -->
                 <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-up delay-200">
                     <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mb-6 animate-float delay-200">
+                        <i class="fas fa-robot text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Advanced Ai-Powered Farming</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Leverage AI-driven insights to optimize your farming practices. Make data-backed decisions for better crop yields and resource management.
+                    </p>
+                    <div class="mt-6 flex items-center text-red-600 font-semibold">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-2"></i>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-up delay-200">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mb-6 animate-float delay-200">
                         <i class="fas fa-users text-2xl text-white"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-800 mb-4">Advanced User Management</h3>
@@ -138,8 +153,8 @@
                         <i class="fas fa-arrow-right ml-2 transition-transform duration-300 group-hover:translate-x-2"></i>
                     </div>
                 </div>
-                
-                <!-- Feature 3 -->
+
+                <!-- Feature 4 -->
                 <div class="feature-card rounded-3xl p-8 hover-lift animate-fade-in-right delay-400">
                     <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mb-6 animate-float delay-400">
                         <i class="fas fa-chart-line text-2xl text-white"></i>
@@ -243,7 +258,7 @@
     </section>
 
  <!-- Footer -->
-  <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
+<footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
     <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
       <div>
         <h2 class="text-xl font-bold">AgroSmart</h2>
@@ -252,11 +267,11 @@
       <div>
         <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
         <ul class="space-y-1 text-sm">
-          <li><a href="#dashboard" class="hover:text-blue-600">Dashboard</a></li>
-          <li><a href="#users" class="hover:text-blue-600">Users</a></li>
-          <li><a href="#inventory" class="hover:text-blue-600">Farmer Inventory</a></li>
-          <li><a href="#inventory" class="hover:text-blue-600">Shopkeeper Inventory</a></li>
-          <li><a href="#reports" class="hover:text-blue-600">Reports</a></li>
+          <li><a href="{% url "login" %}" class="hover:text-blue-600">Login</a></li>
+          <li><a href="{% url "register" %}" class="hover:text-blue-600">Register</a></li>
+          <li><a href="{% url "AboutUs" %}" class="hover:text-blue-600">About us</a></li>
+          <li><a href="{% url "ContactUs" %}" class="hover:text-blue-600">Contact us</a></li>
+          <li><a href="{% url "dev" %}" class="hover:text-blue-600">Dev's</a></li>
         </ul>
       </div>
       <div>
