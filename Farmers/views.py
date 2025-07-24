@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from Auth.decorators import custom_login_required
-from .models import Item
+from django.conf import settings
+from Farmers.models import Item
 from django.contrib import messages
 from datetime import datetime, date,timedelta
+import os
 
 @custom_login_required
 def Farmers(request):
@@ -263,9 +265,16 @@ def Market_places_send_items(request, id):
 def Delete_market_item(request, id):
     try:
         item = Item.objects.get(id=id)
+
+        image_path = os.path.join(settings.MEDIA_ROOT, str(item.image))
+
+        if os.path.exists(image_path):
+            os.remove(image_path)
+
         item.isInMarketPlaces = False
+        item.image = None 
         item.save()
-        messages.success(request, "Item successfully deleted.")
+        messages.success(request, "Item image deleted and removed from marketplace.")
     except Item.DoesNotExist:
         messages.error(request, "Item not found.")
     return redirect('Market_places')

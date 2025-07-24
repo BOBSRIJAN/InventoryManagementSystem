@@ -2,207 +2,317 @@
 {% load static %}
 
 {% block content %}
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-  <div class="text-center mb-12">
-    <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4">Inventory Report</h1>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto">A glance at your current stock and expiry status</p>
+<!-- Background with gradient and pattern -->
+<div class="min-h-screen  relative overflow-hidden">
+  <!-- Decorative background elements -->
+  <div class="absolute inset-0 opacity-20">
+    <div class="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-200 to-indigo-200 rounded-full mix-blend-multiply filter blur-2xl animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-80 h-80 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full mix-blend-multiply filter blur-2xl animate-pulse delay-1000"></div>
+    <div class="absolute bottom-20 left-1/3 w-72 h-72 bg-gradient-to-r from-indigo-200 to-blue-200 rounded-full mix-blend-multiply filter blur-2xl animate-pulse delay-700"></div>
   </div>
 
-  {% if total_quantity > 0 %}
-
-  <!-- Top Stats Summary -->
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div class="bg-white/50 rounded-xl shadow-lg p-6 text-center">
-      <div class="text-3xl font-bold text-indigo-600">{{ total }}</div>
-      <div class="text-gray-600">Total Items</div>
-    </div>
-    <div class="bg-white/50 rounded-xl shadow-lg p-6 text-center">
-      <div class="text-3xl font-bold text-green-600">{{ non_expired_items|length }}</div>
-      <div class="text-gray-600">Active Items</div>
-    </div>
-    <div class="bg-white/30 rounded-xl shadow-lg p-6 text-center">
-      <div class="text-3xl font-bold text-red-600">{{ expired_items|length }}</div>
-      <div class="text-gray-600">Expired Items</div>
-    </div>
-  </div>
-
-  <!-- Main Content Grid -->
-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-
-    <!-- Category Breakdown Chart -->
-    <div class="lg:col-span-1 bg-white/50 rounded-xl shadow-lg p-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-6 text-center">Category Breakdown</h2>
-
-      <div class="flex justify-center mb-6">
-        <div class="relative w-48 h-48">
-          <div class="absolute inset-0 rounded-full"
-               style="background: conic-gradient(
-               {% for slice in pie_chart_data %}
-                   {{ slice.color }} {{ slice.start_degree|floatformat:2 }}deg {{ slice.end_degree|floatformat:2 }}deg{% if not forloop.last %}, {% endif %}
-               {% endfor %}
-               );">
-          </div>
-          <div class="absolute inset-8 bg-white rounded-full shadow-inner flex items-center justify-center font-semibold text-gray-600 text-center">
-            <div>
-              <div class="text-xs text-gray-500">Total</div>
-              <div class="text-lg font-bold">{{ total }}</div>
-            </div>
-          </div>
-        </div>
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Page Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl mb-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+        <i class="fas fa-chart-bar text-4xl text-white"></i>
       </div>
+      <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 mb-6">
+        Inventory Analytics
+      </h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+        Comprehensive overview of your stock levels, expiry tracking, and inventory health metrics
+      </p>
+      <div class="w-40 h-1 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 mx-auto rounded-full"></div>
+    </div>
 
-      <div class="space-y-2">
-        {% for slice in pie_chart_data %}
-        <div class="flex items-center justify-between text-xs text-gray-700 p-2 rounded-lg hover:bg-gray-50">
-          <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: {{ slice.color }}"></span>
-            <span class="font-medium">{{ slice.name }}</span>
-          </div>
-          <span class="font-semibold text-gray-800">{{ slice.quantity }}</span>
+    {% if total_quantity > 0 %}
+
+    <!-- Enhanced Stats Summary -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+      <div class="group bg-white/40 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center border border-white/20 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-400 to-blue-500"></div>
+        <div class="w-16 h-16 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-boxes text-2xl text-white"></i>
         </div>
-        {% endfor %}
+        <div class="text-4xl font-black text-indigo-600 mb-2">{{ total }}</div>
+        <div class="text-gray-600 font-semibold">Total Items</div>
+        <div class="text-sm text-gray-500 mt-2">In your inventory</div>
+      </div>
+      
+      <div class="group bg-white/40 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center border border-white/20 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-400 to-green-500"></div>
+        <div class="w-16 h-16 bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-check-circle text-2xl text-white"></i>
+        </div>
+        <div class="text-4xl font-black text-emerald-600 mb-2">{{ non_expired_items|length }}</div>
+        <div class="text-gray-600 font-semibold">Active Items</div>
+        <div class="text-sm text-gray-500 mt-2">Fresh & available</div>
+      </div>
+      
+      <div class="group bg-white/40 backdrop-blur-xl rounded-3xl shadow-2xl p-8 text-center border border-white/20 hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-rose-500"></div>
+        <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-exclamation-triangle text-2xl text-white"></i>
+        </div>
+        <div class="text-4xl font-black text-red-600 mb-2">{{ expired_items|length }}</div>
+        <div class="text-gray-600 font-semibold">Expired Items</div>
+        <div class="text-sm text-gray-500 mt-2">Need attention</div>
       </div>
     </div>
 
-    <!-- All Items Display -->
-    <div class="lg:col-span-3 bg-white/50 shadow-lg rounded-xl p-6">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-xl font-semibold text-gray-700">All Inventory Items</h2>
-        <div class="flex items-center space-x-4">
-          <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-            <span class="text-sm text-gray-600">Active</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
-            <span class="text-sm text-gray-600">Expiring Soon</span>
-          </div>
-          <div class="flex items-center space-x-2">
-            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-            <span class="text-sm text-gray-600">Expired</span>
-          </div>
-        </div>
-      </div>
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 xl:grid-cols-4 gap-10">
 
-      <!-- Items Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 max-h-96 overflow-y-auto">
+      <!-- Enhanced Category Breakdown Chart -->
+      <div class="xl:col-span-1 bg-white/40 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20 relative overflow-hidden group hover:shadow-3xl transition-all duration-500">
+        <!-- Decorative corner -->
+        <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-indigo-200/30 to-transparent rounded-bl-3xl"></div>
         
-        <!-- Active Items -->
-        {% for item, used_percent in non_expired_items %}
-        <div class="bg-gray-50 p-4 rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition-shadow">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold text-gray-800">{{ item.name }}</h3>
-              <p class="text-sm text-gray-600">{{ item.category }}</p>
-            </div>
-            <div class="text-right">
-              <div class="text-sm font-medium text-gray-800">{{ item.quantity }}</div>
-              <div class="text-xs text-gray-500">units</div>
-            </div>
+        <div class="text-center mb-8">
+          <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+            <i class="fas fa-chart-pie text-white"></i>
           </div>
-          
-          <div class="mb-2">
-            <div class="flex justify-between text-xs text-gray-600 mb-1">
-              <span> Shelf life: -{{ used_percent }}%</span>
-              <span>Exp: {{ item.exp_date }}</span>
+          <h2 class="text-2xl font-black text-gray-800 mb-2">Category Analysis</h2>
+          <div class="w-16 h-1 bg-gradient-to-r from-indigo-400 to-purple-500 mx-auto rounded-full"></div>
+        </div>
+
+        <div class="flex justify-center mb-8">
+          <div class="relative w-56 h-56">
+            <!-- Enhanced pie chart with shadow -->
+            <div class="absolute inset-0 rounded-full shadow-2xl"
+                 style="background: conic-gradient(
+                 {% for slice in pie_chart_data %}
+                     {{ slice.color }} {{ slice.start_degree|floatformat:2 }}deg {{ slice.end_degree|floatformat:2 }}deg{% if not forloop.last %}, {% endif %}
+                 {% endfor %}
+                 );">
             </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div class="h-full rounded-full transition-all duration-300 ease-in-out
-                          {% if used_percent > 80 %}
-                            bg-red-500
-                          {% elif used_percent > 50 %}
-                            bg-yellow-400
-                          {% else %}
-                            bg-green-500
-                          {% endif %}"
-                   style="width: {{ used_percent }}%">
+            <!-- Inner circle with enhanced styling -->
+            <div class="absolute inset-10 bg-white/40 rounded-full shadow-2xl flex items-center justify-center font-semibold text-gray-700 border-4 border-gray-50">
+              <div class="text-center">
+                <div class="text-xs text-gray-500 font-medium">TOTAL</div>
+                <div class="text-2xl font-black text-gray-800">{{ total }}</div>
+                <div class="text-xs text-gray-400">items</div>
               </div>
             </div>
           </div>
-          
-          <div class="flex items-center justify-between">
-            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
-                         {% if used_percent > 80 %}
-                           bg-red-100 text-red-800
-                         {% elif used_percent > 50 %}
-                           bg-yellow-100 text-yellow-800
-                         {% else %}
-                           bg-green-100 text-green-800
-                         {% endif %}">
-              {% if used_percent > 80 %}
-                Critical
-              {% elif used_percent > 50 %}
-                Warning
-              {% else %}
-                Good
-              {% endif %}
-            </span>
-          </div>
         </div>
-        {% endfor %}
 
-        <!-- Expired Items -->
-        {% for item, used_percent in expired_items %}
-        <div class="bg-red-50 p-4 rounded-xl shadow-sm border border-red-200 hover:shadow-md transition-shadow">
-          <div class="flex justify-between items-start mb-3">
-            <div>
-              <h3 class="font-semibold text-gray-800">{{ item.name }}</h3>
-              <p class="text-sm text-gray-600">{{ item.category }}</p>
+        <!-- Enhanced legend -->
+        <div class="space-y-3">
+          {% for slice in pie_chart_data %}
+          <div class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50/50 transition-colors duration-200 group/item">
+            <div class="flex items-center space-x-3">
+              <div class="w-4 h-4 rounded-full shadow-md flex-shrink-0" style="background-color: {{ slice.color }}"></div>
+              <span class="font-semibold text-gray-700 group-hover/item:text-gray-900">{{ slice.name }}</span>
             </div>
             <div class="text-right">
-              <div class="text-sm font-medium text-gray-800">{{ item.quantity }}</div>
+              <div class="font-black text-gray-800">{{ slice.quantity }}</div>
               <div class="text-xs text-gray-500">units</div>
             </div>
           </div>
-          
-          <div class="mb-2">
-            <div class="flex justify-between text-xs text-gray-600 mb-1">
-              <span>Status: Expired</span>
-              <span class="text-red-600">{{ item.exp_date }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Enhanced All Items Display -->
+      <div class="xl:col-span-3 bg-white/40 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-white/20 relative overflow-hidden hover:shadow-3xl transition-all duration-500">
+        <!-- Decorative corner -->
+        <div class="absolute top-0 left-0 w-20 h-20 bg-gradient-to-br from-purple-200/30 to-transparent rounded-br-3xl"></div>
+        
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between mb-8 space-y-4 lg:space-y-0">
+          <div>
+            <div class="flex items-center mb-2">
+              <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center mr-3 shadow-lg">
+                <i class="fas fa-warehouse text-white text-sm"></i>
+              </div>
+              <h2 class="text-2xl font-black text-gray-800">Inventory Overview</h2>
             </div>
-            <div class="w-full bg-gray-200 rounded-full h-2">
-              <div class="h-full rounded-full bg-red-500" style="width: 100%"></div>
-            </div>
+            <div class="w-20 h-1 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full"></div>
           </div>
           
-          <div class="flex items-center justify-between">
-            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-              ⚠️ Expired
-            </span>
+          <!-- Enhanced status legend -->
+          <div class="flex flex-wrap items-center gap-6">
+            <div class="flex items-center space-x-2 bg-emerald-50 px-4 py-2 rounded-xl shadow-sm">
+              <span class="w-4 h-4 bg-emerald-500 rounded-full shadow-md"></span>
+              <span class="text-sm font-semibold text-emerald-700">Fresh</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-amber-50 px-4 py-2 rounded-xl shadow-sm">
+              <span class="w-4 h-4 bg-amber-500 rounded-full shadow-md"></span>
+              <span class="text-sm font-semibold text-amber-700">Expiring Soon</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-red-50 px-4 py-2 rounded-xl shadow-sm">
+              <span class="w-4 h-4 bg-red-500 rounded-full shadow-md"></span>
+              <span class="text-sm font-semibold text-red-700">Expired</span>
+            </div>
           </div>
         </div>
-        {% endfor %}
+
+        <!-- Enhanced Items Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-6 max-h-[600px] overflow-y-auto custom-scrollbar pr-2">
+          
+          <!-- Enhanced Active Items -->
+          {% for item, used_percent in non_expired_items %}
+          <div class="group bg-gradient-to-br from-white to-gray-50 p-6 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <!-- Status indicator -->
+            <div class="absolute top-4 right-4 w-3 h-3 rounded-full
+                        {% if used_percent > 80 %}bg-red-500{% elif used_percent > 50 %}bg-amber-500{% else %}bg-emerald-500{% endif %}
+                        shadow-lg"></div>
+            
+            <div class="flex justify-between items-start mb-4">
+              <div class="flex-1">
+                <h3 class="font-bold text-gray-800 text-lg mb-1 group-hover:text-gray-900">{{ item.name }}</h3>
+                <div class="flex items-center">
+                  <span class="text-sm text-gray-600 bg-gray-100 px-3 py-1 rounded-lg font-medium">{{ item.category }}</span>
+                </div>
+              </div>
+              <div class="text-right ml-4">
+                <div class="text-xl font-black text-gray-800">{{ item.quantity }}</div>
+                <div class="text-xs text-gray-500 font-semibold">UNITS</div>
+              </div>
+            </div>
+            
+            <!-- Enhanced progress section -->
+            <div class="mb-4">
+              <div class="flex justify-between text-xs font-semibold text-gray-600 mb-2">
+                <span class="flex items-center">
+                  <i class="fas fa-hourglass-half mr-1"></i>
+                  Used: {{ used_percent }}%
+                </span>
+                <span class="flex items-center">
+                  <i class="fas fa-calendar-alt mr-1"></i>
+                  {{ item.exp_date }}
+                </span>
+              </div>
+              
+              <!-- Enhanced progress bar -->
+              <div class="relative">
+                <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner">
+                  <div class="h-full rounded-full transition-all duration-500 ease-out shadow-sm
+                              {% if used_percent > 80 %}
+                                bg-gradient-to-r from-red-400 to-red-500
+                              {% elif used_percent > 50 %}
+                                bg-gradient-to-r from-amber-400 to-amber-500
+                              {% else %}
+                                bg-gradient-to-r from-emerald-400 to-emerald-500
+                              {% endif %}"
+                       style="width: {{ used_percent }}%">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Enhanced status badge -->
+            <div class="flex items-center justify-between">
+              <span class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-bold shadow-sm
+                           {% if used_percent > 80 %}
+                             bg-gradient-to-r from-red-100 to-red-200 text-red-800
+                           {% elif used_percent > 50 %}
+                             bg-gradient-to-r from-amber-100 to-amber-200 text-amber-800
+                           {% else %}
+                             bg-gradient-to-r from-emerald-100 to-emerald-200 text-emerald-800
+                           {% endif %}">
+                <i class="fas fa-circle text-xs mr-2"></i>
+                {% if used_percent > 80 %}
+                  Critical Level
+                {% elif used_percent > 50 %}
+                  Warning Level
+                {% else %}
+                  Optimal Level
+                {% endif %}
+              </span>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- Enhanced Expired Items -->
+          {% for item, used_percent in expired_items %}
+          <div class="group bg-gradient-to-br from-red-50 to-rose-50 p-6 rounded-2xl shadow-lg border-2 border-red-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative overflow-hidden">
+            <!-- Expired indicator -->
+            <div class="absolute top-4 right-4 w-3 h-3 bg-red-500 rounded-full animate-pulse shadow-lg"></div>
+            
+            <div class="flex justify-between items-start mb-4">
+              <div class="flex-1">
+                <h3 class="font-bold text-gray-800 text-lg mb-1 group-hover:text-gray-900">{{ item.name }}</h3>
+                <div class="flex items-center">
+                  <span class="text-sm text-gray-600 bg-red-100 px-3 py-1 rounded-lg font-medium">{{ item.category }}</span>
+                </div>
+              </div>
+              <div class="text-right ml-4">
+                <div class="text-xl font-black text-gray-800">{{ item.quantity }}</div>
+                <div class="text-xs text-gray-500 font-semibold">UNITS</div>
+              </div>
+            </div>
+            
+            <!-- Expired status section -->
+            <div class="mb-4">
+              <div class="flex justify-between text-xs font-semibold text-gray-600 mb-2">
+                <span class="flex items-center text-red-600">
+                  <i class="fas fa-times-circle mr-1"></i>
+                  Status: Expired
+                </span>
+                <span class="flex items-center text-red-600">
+                  <i class="fas fa-calendar-times mr-1"></i>
+                  {{ item.exp_date }}
+                </span>
+              </div>
+              
+              <!-- Full red progress bar -->
+              <div class="relative">
+                <div class="w-full bg-gray-200 rounded-full h-3 shadow-inner">
+                  <div class="h-full rounded-full bg-gradient-to-r from-red-500 to-rose-500 shadow-sm" style="width: 100%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Expired status badge -->
+            <div class="flex items-center justify-between">
+              <span class="inline-flex items-center px-4 py-2 rounded-xl text-sm font-bold shadow-sm bg-gradient-to-r from-red-200 to-rose-200 text-red-800">
+                <i class="fas fa-exclamation-triangle text-xs mr-2 animate-pulse"></i>
+                Expired Product
+              </span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Enhanced empty state for items -->
+        {% if not non_expired_items and not expired_items %}
+        <div class="text-center py-20">
+          <div class="w-24 h-24 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl">
+            <i class="fas fa-boxes text-4xl text-gray-400"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-400 mb-4">No Items Found</h3>
+          <p class="text-gray-500 text-lg">Your inventory appears to be empty. Start by adding some items!</p>
+        </div>
+        {% endif %}
       </div>
 
-      <!-- Show message if no items -->
-      {% if not non_expired_items and not expired_items %}
-      <div class="text-center py-12">
-        <svg class="w-12 h-12 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
-        </svg>
-        <p class="text-gray-400">No items found in inventory.</p>
+    </div>
+
+    {% else %}
+
+    <!-- Enhanced Empty State -->
+    <div class="flex items-center justify-center mt-20">
+      <div class="text-center max-w-md mx-auto">
+        <div class="w-32 h-32 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl">
+          <div class="w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+            <i class="fas fa-warehouse text-3xl text-white"></i>
+          </div>
+        </div>
+        <h3 class="text-3xl font-black text-gray-700 mb-4">No Inventory Data</h3>
+        <p class="text-gray-500 text-lg leading-relaxed mb-8">
+          Your inventory is currently empty. Start adding products to see comprehensive analytics and insights here.
+        </p>
+        <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
+          <i class="fas fa-plus mr-3"></i>
+          Add Your First Item
+        </div>
       </div>
-      {% endif %}
     </div>
 
-  </div>
-
-  {% else %}
-
-  <!-- Empty State -->
-  <div class="flex items-center justify-center mt-20">
-    <div class="text-center">
-      <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" stroke-width="1.5"
-           viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"/>
-      </svg>
-      <h3 class="text-lg font-medium text-gray-700 mb-2">No Inventory Data</h3>
-      <p class="text-gray-500">No inventory data available at the moment.</p>
-    </div>
-  </div>
-
-  {% endif %}
-</main>
+    {% endif %}
+  </main>
+</div>
 {% endblock %}
