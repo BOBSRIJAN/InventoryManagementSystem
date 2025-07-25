@@ -1,9 +1,22 @@
-# Underdevelopment!
-
 # Inventory Management System
 
 ## Project Overview
-This is an Inventory Management System built using Django. The system manages different user roles including Admin, Farmers, Shopkeepers, and general Users. It provides functionalities such as inventory management, user authentication, and reporting.
+This Inventory Management System is a comprehensive web application built using Django, designed to efficiently manage inventory operations across multiple user roles. The system supports Admins, Farmers, Shopkeepers, and general Users, each with tailored functionalities to streamline inventory management, user authentication, and reporting.
+
+## Key Features
+- Role-based access control for Admin, Farmers, Shopkeepers, and Users
+- Inventory management tailored for Farmers and Shopkeepers
+- User authentication and authorization with secure login and registration
+- Administrative dashboard for managing users and overseeing system operations
+- Reporting and data visualization capabilities (if applicable)
+- Responsive and user-friendly interface
+
+## Technologies Used
+- Python 3.x
+- Django Web Framework
+- HTML, CSS, JavaScript for frontend templates and static assets
+- SQLite/MySQL/PostgreSQL (depending on configuration) for database
+- Other Python dependencies as listed in `requirements.txt`
 
 ## Installation
 
