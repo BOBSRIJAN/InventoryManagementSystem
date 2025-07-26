@@ -25,7 +25,6 @@ def Farmers(request):
 
     return render(request, 'Farmers/FarmerDashboard.html', {'user': user})
 
-
 @custom_login_required
 def Manage_items(request):
     search_term = ""
@@ -37,6 +36,32 @@ def Manage_items(request):
         item_id = request.POST.get("id")
         search_term = request.POST.get("search_term")
         search_by = request.POST.get("search_by")
+
+        if action == "delete" and item_id:
+            Item.objects.filter(id=item_id, userid=user_id).delete()
+            messages.error(request, "Item deleted successfully")
+            return redirect('Manage_items')
+
+        if action == "search":
+            if search_term:
+                if search_by == "name":
+                    items = Item.objects.filter(
+                        name__icontains=search_term, userid=user_id)
+                elif search_by == "category":
+                    items = Item.objects.filter(
+                        category__icontains=search_term, userid=user_id)
+                elif search_by == "date":
+                    items = Item.objects.filter(
+                        exp_date__icontains=search_term, userid=user_id)
+                else:
+                    items = Item.objects.filter(userid=user_id)
+
+                return render(request, 'Farmers/Manage_items.html', {
+                    "items": items,
+                    "search_term": search_term,
+                    "search_by": search_by,
+                    "edit_item": None
+                })
 
         try:
             price = float(request.POST["price"])
@@ -75,7 +100,6 @@ def Manage_items(request):
                 price=request.POST["price"],
                 add_date=request.POST["add_date"],
                 exp_date=request.POST["exp_date"],
-
             )
             messages.success(request, "Item Added Successfully")
 
@@ -89,31 +113,6 @@ def Manage_items(request):
             item.exp_date = request.POST["exp_date"]
             item.save()
             messages.success(request, "Item updated successfully")
-
-        elif action == "delete" and item_id:
-            Item.objects.filter(id=item_id, userid=user_id).delete()
-            messages.error(request, "Item deleted successfully")
-
-        elif action == "search":
-            if search_term:
-                if search_by == "name":
-                    items = Item.objects.filter(
-                        name__icontains=search_term, userid=user_id)
-                elif search_by == "category":
-                    items = Item.objects.filter(
-                        category__icontains=search_term, userid=user_id)
-                elif search_by == "date":
-                    items = Item.objects.filter(
-                        exp_date__icontains=search_term, userid=user_id)
-                else:
-                    items = Item.objects.filter(userid=user_id)
-
-                return render(request, 'Farmers/Manage_items.html', {
-                    "items": items,
-                    "search_term": search_term,
-                    "search_by": search_by,
-                    "edit_item": None
-                })
 
         return redirect('Manage_items')
 
@@ -133,7 +132,6 @@ def Manage_items(request):
         "search_term": search_term,
         "search_by": search_by
     })
-
 
 @custom_login_required
 def Inventory_reports(request):

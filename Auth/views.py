@@ -27,7 +27,7 @@ def login(request):
                 return redirect('Shopkeeper')
             
             elif user.role == 'user':
-                return
+                return redirect('user_dashboard')
             
             else:
                 messages.error(request, "Invalid user")
