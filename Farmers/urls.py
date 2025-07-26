@@ -10,5 +10,6 @@ urlpatterns = [
     path("farmers_delete_market_item/<str:id>/", Delete_market_item, name="delete_market_item"),
     path('farmers_agri_vision/', AgriVision, name='AgriVision'),
     path('farmers_agri_bot/', AgriBot, name='AgriBot'),
+    path("farmers_customer_feedback/",Customer_feedback, name="CustomerFeedback"),
     path('farmers_logout/', Farmers_logout, name='Farmers_logout'),
 ]

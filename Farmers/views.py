@@ -7,8 +7,6 @@ from django.contrib import messages
 from datetime import datetime, date, timedelta
 from django.core.files.storage import FileSystemStorage
 import os
-import re
-
 
 @custom_login_required
 def Farmers(request):
@@ -123,7 +121,6 @@ def Manage_items(request):
 
         return redirect('Manage_items')
 
-    # For GET requests
     items = Item.objects.filter(userid=user_id).order_by("-id")
     edit_item = None
     edit_id = request.GET.get("edit")
@@ -262,8 +259,7 @@ def Market_places_send_items(request, id):
         if all([name, quantity, category, price, description]):
 
             if not update.isInMarketPlaces and not image and not update.image:
-                messages.error(
-                    request, "Please upload an image before submitting to the marketplace.")
+                messages.error(request, "Please upload an image before submitting to the marketplace.")
             else:
                 update.name = name
                 update.quantity = quantity
@@ -276,8 +272,7 @@ def Market_places_send_items(request, id):
 
                 update.isInMarketPlaces = True
                 update.save()
-                messages.success(
-                    request, "Item successfully updated and sent to marketplace.")
+                messages.success(request, "Item successfully updated and sent to marketplace.")
                 return redirect('Market_places')
         else:
             messages.error(request, "All fields are required.")
@@ -297,12 +292,10 @@ def Delete_market_item(request, id):
         item.isInMarketPlaces = False
         item.image = None
         item.save()
-        messages.success(
-            request, "Item image deleted and removed from marketplace.")
+        messages.success(request, "Item image deleted and removed from marketplace.")
     except Item.DoesNotExist:
         messages.error(request, "Item not found.")
     return redirect('Market_places')
-
 
 @custom_login_required
 def AgriVision(request):
@@ -316,8 +309,7 @@ def AgriVision(request):
             messages.error(request, "Please upload an image.")
             return redirect('AgriVision')
 
-        fs = FileSystemStorage(
-            location=os.path.join(settings.BASE_DIR, 'media'))
+        fs = FileSystemStorage(location=os.path.join(settings.BASE_DIR, 'media'))
         filename = fs.save(uploaded_file.name, uploaded_file)
         file_path = os.path.join(settings.BASE_DIR, 'media', filename)
         image_url = fs.url(filename)
@@ -331,11 +323,25 @@ def AgriVision(request):
         'prediction': prediction
     })
 
-
 @custom_login_required
 def AgriBot(request):
-    return render(request, "Farmers/AgriBot.html")
+    message = []
 
+    if request.method == 'POST':
+        userMsg = request.POST.get('message')
+        if userMsg:
+            AgriBot_prompt = os.getenv('AgriBot_prompt', '')
+            raw_prediction = Ai(prompt=[AgriBot_prompt, "user Question->", userMsg])
+            Ai_answer = raw_prediction.replace('*', '').strip()
+
+            message.append({'text': userMsg, 'sender': 'user'})
+            message.append({'text': Ai_answer, 'sender': 'ai'})
+
+    return render(request, "Farmers/AgriBot.html", {'message': message})
+
+@custom_login_required
+def Customer_feedback(request):
+    return render(request, "Farmers/CustomerFeedback.html")
 
 def Farmers_logout(request):
     request.session.flush()
