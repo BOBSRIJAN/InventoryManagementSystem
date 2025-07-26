@@ -40,10 +40,8 @@ def Manage_items(request):
 
         try:
             price = float(request.POST["price"])
-            add_date = datetime.strptime(
-                request.POST["add_date"], "%Y-%m-%d").date()
-            exp_date = datetime.strptime(
-                request.POST["exp_date"], "%Y-%m-%d").date()
+            add_date = datetime.strptime(request.POST["add_date"], "%Y-%m-%d").date()
+            exp_date = datetime.strptime(request.POST["exp_date"], "%Y-%m-%d").date()
 
             today = datetime.now().date()
             max_date = today + timedelta(days=365)
@@ -52,14 +50,12 @@ def Manage_items(request):
                 messages.error(request, "Price must be greater than 0.")
                 return redirect('Manage_items')
 
-            if not (today < add_date <= max_date):
-                messages.error(
-                    request, "Add date must be a future date within 1 year.")
+            if not (today <= add_date <= max_date):
+                messages.error(request, "Add date must be today or a future date within 1 year.")
                 return redirect('Manage_items')
 
             if not (today < exp_date <= max_date):
-                messages.error(
-                    request, "Expire date must be a future date within 1 year.")
+                messages.error(request, "Expire date must be a future date within 1 year.")
                 return redirect('Manage_items')
 
             if exp_date <= add_date:

@@ -29,6 +29,24 @@ def delete_user(request, user_id):
         messages.success(request, "User deleted.")
     return redirect('user_management')
 
+def FarmerInventory(request):
+    items = FarmerItem.objects.all().order_by('id')
+    
+    if request.method == 'POST':
+        item_id = request.POST.get('id')
+        FarmerItem.objects.filter(id=item_id).delete()
+        messages.success(request, "Item deleted successfully.")
+    return render(request, 'Admin/FarmerInventory.html', { 'items': items })
+
+def ShopkeeperInventory(request):
+    items = ShopkeeperItem.objects.all().order_by('id')
+    
+    if request.method == 'POST':
+        item_id = request.POST.get('id')
+        ShopkeeperItem.objects.filter(id=item_id).delete()
+        messages.success(request, "Item deleted successfully.")
+    return render(request, 'Admin/ShopkeeperInventory.html', { 'items': items })
+
 def Admin_logout(request):
     logout(request)
     return redirect('LandingPage')

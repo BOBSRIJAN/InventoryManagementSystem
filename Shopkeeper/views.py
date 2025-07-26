@@ -47,8 +47,8 @@ def Manage_items(request):
                 messages.error(request, "Price must be greater than 0.")
                 return redirect('Shopkeeper_Manage_items')
 
-            if not (today < add_date <= max_date):
-                messages.error(request, "Add date must be a future date within 1 year.")
+            if not (today <= add_date <= max_date):
+                messages.error(request, "Add date must be today or a future date within 1 year.")
                 return redirect('Shopkeeper_Manage_items')
 
             if not (today < exp_date <= max_date):
