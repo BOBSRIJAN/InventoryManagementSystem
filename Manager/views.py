@@ -14,7 +14,7 @@ def LandingPage(request):
                 elif Role == 'Shopkeeper':
                     return redirect('Farmers') 
                 elif Role == 'user':
-                    return redirect('Farmers')
+                    return redirect('user_dashboard')
         return redirect('login')
 
     return render(request, 'LandingPage.html')
