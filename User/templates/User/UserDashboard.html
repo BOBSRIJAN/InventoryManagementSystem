@@ -1,11 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    this is the page
-</body>
-</html>
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen flex flex-col justify-center items-center font-[Poppins] text-center">
+    <h1 class="text-5xl font-bold mb-4 animate-fade-in-down">🚀 Exciting Things Are Coming Soon! 🚀</h1>
+    <p class="text-2xl mb-6 animate-fade-in-up">We're working hard to bring you the best online fruit shopping experience.</p>
+
+    <div class="text-3xl font-bold mb-6">
+        🕒 Launching in {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
+    </div>
+
+    <a href="{% url 'LandingPage' %}" class="bg-white text-pink-600 hover:bg-pink-600 hover:text-white transition-all duration-300 rounded-full px-6 py-3 text-lg font-semibold shadow-lg hover:scale-105">
+        🏠 Back to Home
+    </a>
+</div>
+<style>
+
+</style>
+{% endblock %}
