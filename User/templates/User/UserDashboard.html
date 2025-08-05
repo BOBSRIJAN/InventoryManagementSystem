@@ -1,20 +1,199 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
 {% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="icon" type="image/png/ico" href="{% static 'img/favicon.ico' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="{% static 'css/Dashboard.css' %}"/>
+</head>
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-sky-300 via-white to-emerald-200">
+
+<!-- Navbar -->
+<div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-[600px] px-4">
+  <input type="checkbox" id="searchToggle" class="peer/search hidden">
+  <input type="checkbox" id="menuToggle" class="peer/menu hidden">
+  <div class="flex items-center justify-between bg-gray-800 text-white rounded-full px-4 py-2 shadow-lg transition-all duration-300 hover:scale-105">
+        <div class="flex items-center space-x-3">
+      <img src="{% static 'img/srijan.jpg' %}" alt="User" class="w-10 h-10 rounded-full object-cover">
+      <form method="GET" class="hidden sm:block">
+        <input type="text" name="Search" placeholder="Search..."
+          class="bg-gray-700 text-white text-sm rounded-lg px-4 py-1 outline-none focus:ring-2 focus:ring-blue-500 transition w-40 sm:w-60 md:w-72">
+      </form>
+      <label for="searchToggle" class="sm:hidden cursor-pointer">
+        <i class="fas fa-search text-lg"></i>
+      </label>
+
+      <label for="menuToggle" class="flex items-center cursor-pointer space-x-7">
+        <span class="text-sm font-semibold hidden sm:inline">
+          <a href="{% url 'user_dashboard' %}">Dashboard</a>
+        </span>
+        <i class="fas fa-bars text-2xl transition-transform duration-300 peer-checked/menu:rotate-90"></i>
+      </label>
+    </div>
+    <a href="{% url 'user_logout' %}" title="Logout"
+      class="bg-red-600 hover:bg-red-700 text-white p-2 rounded-full shadow-md transition-all duration-300">
+      <i class="fas fa-sign-out-alt text-lg"></i>
+    </a>
+  </div>
+  <div class="mt-2 transition-all duration-500 max-h-0 overflow-hidden opacity-0 scale-95 peer-checked/menu:max-h-[400px] peer-checked/menu:opacity-100 peer-checked/menu:scale-100 bg-gray-800 text-white rounded-xl px-4 py-3 shadow-xl">
+        <nav class="flex flex-wrap justify-center gap-2">
+        <a href="#" class="py-2 px-4 rounded hover:bg-gray-700 transition">Home</a>
+        <a href="#" class="py-2 px-4 rounded hover:bg-gray-700 transition">Profile</a>
+        <a href="#" class="py-2 px-4 rounded hover:bg-gray-700 transition">Settings</a>
+        <a href="#" class="py-2 px-4 rounded hover:bg-gray-700 transition">Help</a>
+        </nav>
+  </div>
+  <div class="peer-checked/search:mt-2 peer-checked/search:max-h-[100px] peer-checked/search:opacity-100 peer-checked/search:scale-100 transition-all duration-500 max-h-0 opacity-0 scale-95 overflow-hidden bg-gray-800 text-white rounded-xl px-4 py-2 shadow-xl sm:hidden">
+    <form method="GET">
+      <input type="text" name="Search" placeholder="Search here..."
+        class="bg-gray-700 text-white text-sm rounded-lg px-4 py-2 outline-none w-full focus:ring-2 focus:ring-blue-500 transition">
+    </form>
+  </div>
+</div>
+
+  <section class="pt-28 flex-grow relative z-10">
+    {% if messages %}
+    <div class="max-w-3xl mx-auto px-1 sm:px-2 lg:px-3 py-6 space-y-4">
+      {% for message in messages %}
+      <div class="flex items-start justify-between p-4 rounded-lg shadow-md
+                  {% if message.tags == 'error' %}
+                    bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200
+                  {% elif message.tags == 'success' %}
+                    bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                  {% elif message.tags == 'warning' %}
+                    bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                  {% else %}
+                    bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
+                  {% endif %}
+                  ">
+        <div class="flex-1">
+          <p class="font-medium">{{ message }}</p>
+        </div>
+        <button type="button" class="ml-4 text-xl font-bold leading-none focus:outline-none" onclick="this.parentElement.remove()">&times;</button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
 
 {% block content %}
-<div class="min-h-screen flex flex-col justify-center items-center font-[Poppins] text-center">
-    <h1 class="text-5xl font-bold mb-4 animate-fade-in-down">🚀 Exciting Things Are Coming Soon! 🚀</h1>
-    <p class="text-2xl mb-6 animate-fade-in-up">We're working hard to bring you the best online fruit shopping experience.</p>
+<div class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+        <!-- Dashboard Header -->
+        <div class="bg-white shadow rounded-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Welcome to Your Dashboard</h1>
+            <p class="mt-2 text-gray-600">Manage your inventory, track orders, and more.</p>
+        </div>
 
-    <div class="text-3xl font-bold mb-6">
-        🕒 Launching in {{ days }}d {{ hours }}h {{ minutes }}m {{ seconds }}s
+        <!-- User Type Specific Sections -->
+        {% if user.profile.user_type == 'farmer' %}
+        <!-- Farmer Dashboard -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Manage Crops</h2>
+                <p class="mt-2 text-gray-600">Add, update, or remove your crop listings.</p>
+                <a href="#" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add New Crop</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">View Orders</h2>
+                <p class="mt-2 text-gray-600">Check orders placed for your crops.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Orders</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Inventory Status</h2>
+                <p class="mt-2 text-gray-600">Monitor your crop stock levels.</p>
+                <a href="#" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Check Inventory</a>
+            </div>
+        </div>
+
+        {% elif user.profile.user_type == 'shopkeeper' %}
+        <!-- Shopkeeper Dashboard -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Stock Management</h2>
+                <p class="mt-2 text-gray-600">Update your shop's inventory.</p>
+                <a href="#" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Update Stock</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Purchase Crops</h2>
+                <p class="mt-2 text-gray-600">Browse and buy crops from farmers.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Browse Crops</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Sales Report</h2>
+                <p class="mt-2 text-gray-600">View your sales and performance.</p>
+                <a href="#" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">View Reports</a>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Buyer Dashboard -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Browse Products</h2>
+                <p class="mt-2 text-gray-600">Explore available crops and products.</p>
+                <a href="#' %}" class="mt-4 inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Shop Now</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Your Orders</h2>
+                <p class="mt-2 text-gray-600">Track your recent purchases.</p>
+                <a href="#" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">View Orders</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Cart</h2>
+                <p class="mt-2 text-gray-600">Review items in your cart.</p>
+                <a href="#" class="mt-4 inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Go to Cart</a>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Common Section: Profile and Notifications -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Profile</h2>
+                <p class="mt-2 text-gray-600">Update your personal information.</p>
+                <a href="#" class="mt-4 inline-block bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Edit Profile</a>
+            </div>
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-xl font-semibold text-gray-900">Notifications</h2>
+                <p class="mt-2 text-gray-600">Check your recent alerts and messages.</p>
+                <a href="#" class="mt-4 inline-block bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">View Notifications</a>
+            </div>
+        </div>
     </div>
-
-    <a href="{% url 'LandingPage' %}" class="bg-white text-pink-600 hover:bg-pink-600 hover:text-white transition-all duration-300 rounded-full px-6 py-3 text-lg font-semibold shadow-lg hover:scale-105">
-        🏠 Back to Home
-    </a>
 </div>
-<style>
-
-</style>
 {% endblock %}
+
+  <!-- Footer -->
+  <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h2 class="text-xl font-bold">AgroSmart</h2>
+        <p class="mt-2 text-sm text-gray-600">Empowering smart inventory and user management.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Quick Links</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="{% url "login" %}" class="hover:text-blue-600">Login</a></li>
+          <li><a href="{% url "register" %}" class="hover:text-blue-600">Register</a></li>
+          <li><a href="{% url "AboutUs" %}" class="hover:text-blue-600">About us</a></li>
+          <li><a href="{% url "ContactUs" %}" class="hover:text-blue-600">Contact us</a></li>
+          <li><a href="{% url "dev" %}" class="hover:text-blue-600">Dev's</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold mb-2">Contact</h3>
+        <p class="text-sm">Email: <a href="mr.srijanray@gmail.com" class="text-blue-600 hover:underline">mr.srijanray@gmail.com</a></p>
+        <p class="text-sm">Phone: +91 7044285046</p>
+      </div>
+    </div>
+    <div class="border-t border-white/30 text-center text-sm py-4 bg-white/10 backdrop-blur-sm">
+      &copy; 2025 AgroSmart. All rights reserved.
+    </div>
+  </footer>
+</body>
+</html>

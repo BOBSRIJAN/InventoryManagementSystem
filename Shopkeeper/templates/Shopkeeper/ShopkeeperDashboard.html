@@ -34,7 +34,7 @@
       <a href="{%url 'Shopkeeper_Manage_items'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Manage item's</a>
       <a href="{%url 'Shopkeeper_Inventory_reports'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Inventory Reports</a>
       <a href="{%url 'Shopkeeper_Market_places'%}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Marketplaces</a>
-      <a href="#" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Customer Feedback</a>
+      <a href="{% url "Shopkeeper_Customer_Feedback" %}" class="block py-2 px-4 rounded hover:bg-gray-700 transition">Customer Feedback</a>
     </nav>
   </div>
 </div>
@@ -110,7 +110,7 @@
       </a>
 
       <!-- Feedback -->
-      <a href="#feedback" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
+      <a href="{% url "Shopkeeper_Customer_Feedback" %}" class="group bg-white p-6 rounded-2xl shadow-md hover:shadow-xl transition-all transform hover:scale-105 duration-300">
         <div class="flex items-center space-x-4 mb-3">
           <div class="bg-red-100 text-red-600 p-2 rounded-full">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -121,7 +121,6 @@
         </div>
         <p class="text-gray-600">Review messages and feedback from customer.</p>
       </a>
-
     </div>
   </main>
 {% endblock %}

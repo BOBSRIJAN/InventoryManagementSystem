@@ -279,6 +279,10 @@ def Delete_market_item(request, id):
         messages.error(request, "Item not found.")
     return redirect('Shopkeeper_Market_places')
 
+@custom_login_required
+def Customer_feedback(request):
+    return render(request, "Shopkeeper/CustomerFeedback.html")
+
 def Shopkeeper_logout(request):
     request.session.flush()
     return redirect('LandingPage')

@@ -1,21 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import datetime, timedelta
+from django.contrib import messages
 from Auth.decorators import custom_login_required
+
 # Create your views here.
 @custom_login_required
 def user_dashboard(request):
-    launch_date = datetime.now() + timedelta(days=7)
-    now = datetime.now()
-    time_left = launch_date - now
+    UserName = request.session.get('username')
+    UserEmail = request.session.get('Email')
+    Role = request.session.get('role')
+    if Role != 'user':
+        messages.error(request, "your are not authorized to access this page")
+        return redirect('LandingPage')
+    return render(request, 'User/UserDashboard.html', {'UserName': UserName})
 
-    days = time_left.days
-    hours, remainder = divmod(time_left.seconds, 3600)
-    minutes, seconds = divmod(remainder, 60)
-
-    context = {
-        'days': days,
-        'hours': hours,
-        'minutes': minutes,
-        'seconds': seconds,
-    }
-    return render(request, 'User/UserDashboard.html', context)
+def user_logout(request):
+    request.session.flush()
+    return redirect('LandingPage')

@@ -37,6 +37,30 @@
           </nav>
       </div>
   </div>
+    <section class="pt-16 flex-grow relative z-10">
+        {% if messages %}
+        <div class="max-w-3xl mx-auto px-1 sm:px-2 lg:px-3 py-6 space-y-4">
+        {% for message in messages %}
+        <div class="flex items-start justify-between p-4 rounded-lg shadow-md
+                    {% if message.tags == 'error' %}
+                        bg-red-100 dark:bg-red-800 text-red-800 dark:text-red-200
+                    {% elif message.tags == 'success' %}
+                        bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200
+                    {% elif message.tags == 'warning' %}
+                        bg-yellow-100 dark:bg-yellow-800 text-yellow-800 dark:text-yellow-200
+                    {% else %}
+                        bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200
+                    {% endif %}
+                    ">
+            <div class="flex-1">
+            <p class="font-medium">{{ message }}</p>
+            </div>
+            <button type="button" class="ml-4 text-xl font-bold leading-none focus:outline-none" onclick="this.parentElement.remove()">&times;</button>
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+    </section> 
 
     <!-- Enhanced Hero Section -->
     <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -48,7 +72,7 @@
         </div>
         
         <!-- Hero Content -->
-        <div class="relative z-10 text-center px-4 max-w-6xl mt-32 mx-auto">
+        <div class="relative z-10 text-center px-4 max-w-6xl mt-16 mx-auto">
             <div class="animate-fade-in-up">
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight">
                     <span class="gradient-text">Streamline Your</span>
@@ -258,7 +282,7 @@
             </div>
         </div>
     </section>
-
+    
  <!-- Footer -->
 <footer class="bg-white/20 backdrop-blur-md border-t border-white/30 text-gray-800">
     <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
