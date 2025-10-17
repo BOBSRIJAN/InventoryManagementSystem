@@ -9,7 +9,7 @@ def user_dashboard(request):
     UserName = request.session.get('username')
     UserEmail = request.session.get('Email')
     Role = request.session.get('role')
-    if Role != 'user':
+    if Role != 'user' and Role is not None and Role != 'farmer':
         messages.error(request, "your are not authorized to access this page")
         return redirect('LandingPage')
     return render(request, 'User/UserDashboard.html', {'UserName': UserName})
