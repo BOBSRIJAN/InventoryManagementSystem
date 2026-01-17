@@ -16,11 +16,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['agrosmart-owze.onrender.com','localhost', '127.0.0.1',]  
+ALLOWED_HOSTS = ['inventory-management-system-zhgq.onrender.com','localhost', '127.0.0.1',]  
 
 # CSRF settings
 CSRF_TRUSTED_ORIGINS = [
-    'https://agrosmart-owze.onrender.com',
+    'https://inventory-management-system-zhgq.onrender.com',
 ]
 
 # Application definition
